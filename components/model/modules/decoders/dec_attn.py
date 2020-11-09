@@ -17,7 +17,7 @@ class DecoderRNNAttnBahd(DecoderRNNAttnBase):
         self.attn_module = AttnBahd(enc_dim, dec_dim, enc_num_directions)
         self.W_combine = nn.Linear(prev_y_dim + enc_dim * enc_num_directions, dec_dim)
         self.W_out = nn.Linear(dec_dim, output_size)
-        self.log_softmax = nn.LogSoftmax()  # works with NLL loss
+        self.log_softmax = nn.LogSoftmax(dim=-1)  # works with NLL loss
 
     def combine_context_run_rnn_step(self, prev_y_batch, prev_h_batch, context):
         """

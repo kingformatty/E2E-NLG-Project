@@ -2,8 +2,8 @@
 set -euxo pipefail
 
 # Modify these path variables, if needed!
-PYTHON2=/usr/bin/python2
-E2E_METRICS_FOLDER=$HOME/projects/E2EChallenge/materials/e2e-metrics
+PYTHON2=python
+E2E_METRICS_FOLDER=/home/ruchao/workdir/CS269_project/e2e-metrics
 
 REF_FNAME=$1
 PRED_FNAME=$2

@@ -31,7 +31,7 @@ def run(config_dict):
     data.setup()
 
     # Setup the model
-    fix_seed(config_d['random_seed'])  # fix seed generators
+    fix_seed(config_dict['random_seed'])  # fix seed generators
     model = ModelClass(config_dict["model_params"])
     model.setup(data)  # there are some data-specific params => pass data as arg
 

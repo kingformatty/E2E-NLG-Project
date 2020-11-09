@@ -1,3 +1,9 @@
+# Notice
+
+The code of our course project is modified based on
+[https://github.com/UKPLab/e2e-nlg-challenge-2017](https://github.com/UKPLab/e2e-nlg-challenge-2017)
+
+
 # E2E NLG Challenge submission 
 
 Please use the following citation:

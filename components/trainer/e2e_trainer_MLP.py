@@ -23,7 +23,7 @@ class E2EMLPTrainer(BaseTrainer):
         weight = torch.ones(vocab_size)
         weight[pad_id] = 0
         # self.criterion = nn.NLLLoss(weight, size_average=True)
-        self.criterion = nn.NLLLoss(weight, size_average=True)
+        self.criterion = nn.NLLLoss(weight, reduction="mean")
 
         if self.use_cuda:
             self.criterion = self.criterion.cuda()

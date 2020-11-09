@@ -7,4 +7,6 @@
 
 sandbox/
 components/evaluator/input_files/*
+predictions/*
+experiments/*
 

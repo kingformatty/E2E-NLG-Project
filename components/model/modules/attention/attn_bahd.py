@@ -22,7 +22,7 @@ class AttnBahd(nn.Module):
         self.W = nn.Linear(self.s_dim, self.a_dim)
         self.v = nn.Linear(self.a_dim, 1)
         self.tanh = nn.Tanh()
-        self.softmax = nn.Softmax()
+        self.softmax = nn.Softmax(dim=-1)
 
     def precmp_U(self, enc_outputs):
         """

@@ -47,7 +47,7 @@ class BaseDataClass(object):
         # Read train data, if the train data filename is specified in the config file
         if train_data_fname is not None:
             logger.debug("Reading train data")
-            train_x_raw, train_y_raw, train_lex = self.read_csv_train(train_data_fname, group_ref=True)
+            train_x_raw, train_y_raw, train_lex = self.read_csv_train(train_data_fname, group_ref=False)
             self.lexicalizations['train'] = train_lex
 
             # Read dev data, if the dev data filename is specified in the config file

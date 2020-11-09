@@ -19,7 +19,7 @@ def load_config(config_path):
     """
 
     with open(config_path, 'r') as user_config_file:
-        return yaml.load(user_config_file.read())
+        return yaml.safe_load(user_config_file.read())
 
 
 def fix_seed(seed):
