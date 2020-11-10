@@ -42,7 +42,7 @@ class BaseDataClass(object):
         train_data_fname = self.config.get("train_data", None)
         dev_data_fname = self.config.get("dev_data", None)
         test_data_fname = self.config.get("test_data", None)
-        vocab_path = "%s.vocab" % (train_data_fname)
+        vocab_path = self.config.get("vocab_path", None)
 
         # Read train data, if the train data filename is specified in the config file
         if train_data_fname is not None:

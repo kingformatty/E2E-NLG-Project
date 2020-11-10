@@ -31,7 +31,7 @@ def save_model(model, model_fn):
     """
 
     logger.info('Saving model to --> %s' % model_fn)
-    torch.save(model.state_dict(), open(model_fn, 'wb'))
+    torch.save(model.state_dict(), model_fn)
 
 
 def save_predictions_json(predictions, fname):
@@ -110,7 +110,7 @@ def load_model(model, model_weights_fn):
     """
 
     logger.info('Loading the model <-- %s' % model_weights_fn)
-    model.load_state_dict(torch.load(open(model_weights_fn, 'rb')))
+    model.load_state_dict(torch.load(model_weights_fn, map_location='cpu'))
 
 
 def get_experiment_name(config_d):

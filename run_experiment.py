@@ -1,6 +1,7 @@
 import importlib
 import os
 import sys
+import torch
 
 from components.utils.config import load_config, fix_seed
 from components.utils.log import set_logger
@@ -46,6 +47,8 @@ def run(config_dict):
         evaluator = EvaluationClass(config_dict)
         model_fname = config_dict["model_fn"]
         load_model(model, model_fname)
+        if torch.cuda.is_available():
+            model = model.cuda()
         id2word = data.vocab.id2tok
 
         if 'dev' in data.fnames:

@@ -1,4 +1,4 @@
-experiments_dir: ${HOME}/projects/E2EChallenge/experiments
+experiments_dir: ./experiments
 log_level: INFO
 random_seed: 1
 
@@ -7,7 +7,7 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn:
+model_fn: /home/ruchao/workdir/CS269_project/cs269-nlg-e2e-project/experiments/e2e_model_MLP_seed1-emb256-hid512-drop0.0-bs16-lr0.1_2020-Nov-09_20:55:57/weights.epoch1
 
 # Model module names
 data-module: components.data.e2e_data_MLP
@@ -17,12 +17,13 @@ evaluation-module: components.evaluator.e2e_evaluator
 
 data_params:
 
-  train_data: ${HOME}/var/E2E_challenge/trainset.csv
-  dev_data: ${HOME}/var/E2E_challenge/devset.csv
-  test_data: # specify the file to make preictions on
+  train_data: 
+  dev_data: 
+  test_data: e2e-dataset/testset.csv # specify the file to make preictions on
+  vocab_path: e2e-dataset/vocab.txt
 
-  max_src_len: 50
-  max_tgt_len: 50
+  max_src_len: 100
+  max_tgt_len: 100
 
 model_params:
 

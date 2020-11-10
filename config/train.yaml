@@ -20,6 +20,7 @@ data_params:
   train_data: ./e2e-dataset/trainset.csv
   dev_data: ./e2e-dataset/testset_w_refs.csv
   test_data:
+  vocab_path: ./e2e-dataset/vocab.txt
 
   max_src_len: 50
   max_tgt_len: 100
@@ -42,7 +43,7 @@ model_params:
 
 training_params:
   evaluate_prediction: False
-  save_model_each_epoch: False
+  save_model_each_epoch: True
   n_epochs: 30
   batch_size: 16
   optimizer: SGD

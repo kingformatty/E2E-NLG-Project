@@ -7,6 +7,8 @@ def check_file_exists(fname):
     if not os.path.exists(os.path.abspath(fname)):
         logger.warning("%s does not exist!" % (fname))
         return False
+    else:
+        return True
 
 
 def check_files_exist(args):

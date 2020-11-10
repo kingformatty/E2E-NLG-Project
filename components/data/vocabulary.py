@@ -16,7 +16,7 @@ class VocabularyBase(object):
         Load vocabulary from file.
         """
 
-        if check_file_exists([vocabulary_path]):
+        if check_file_exists(vocabulary_path):
             logger.debug('Loading vocabulary from %s' % vocabulary_path)
 
             vocablist = []
