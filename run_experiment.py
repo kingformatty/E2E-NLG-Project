@@ -63,7 +63,7 @@ def run(config_dict):
             
         if 'test' in data.fnames:
             logger.info("Predicting on test data")
-            predicted_ids, attention_weights = evaluator.evaluate_model(model, data.test[0])
+            predicted_ids, attention_weights = evaluator.evaluate_model_test(model, data.test[0])
             data_lexicalizations = data.lexicalizations['test']
             predicted_snts = evaluator.lexicalize_predictions(predicted_ids,
                                                               data_lexicalizations,

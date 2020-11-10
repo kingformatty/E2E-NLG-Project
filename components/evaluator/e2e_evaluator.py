@@ -35,18 +35,42 @@ class BaseEvaluator(object):
         decoded_attn_weights = []
 
         # Make a prediction on the first input
-        #curr_x_ids = dev_data[0]
-        #out_ids, attn_weights = self.predict_one(model, curr_x_ids)
-        #decoded_ids.append(out_ids)
-        #decoded_attn_weights.append(attn_weights)
+        curr_x_ids = dev_data[0]
+        out_ids, attn_weights = self.predict_one(model, curr_x_ids)
+        decoded_ids.append(out_ids)
+        decoded_attn_weights.append(attn_weights)
 
         # Make predictions on the remaining unique (!) inputs
-        for snt_ids in dev_data:
+        for snt_ids in dev_data[1:]:
+
+            if snt_ids == curr_x_ids:
+                continue
+            else:
+                out_ids, attn_weights = self.predict_one(model, snt_ids)
+                decoded_ids.append(out_ids)
+                decoded_attn_weights.append(attn_weights)
+                curr_x_ids = snt_ids
+
+        return decoded_ids, decoded_attn_weights
+
+    def evaluate_model_test(self, model, test_data):
+        """
+        Evaluating model on orginal data
+        :param model:
+        :param dev_data:
+        :return:
+        """
+
+        decoded_ids = []
+        decoded_attn_weights = []
+
+        for snt_ids in test_data:
             out_ids, attn_weights = self.predict_one(model, snt_ids)
             decoded_ids.append(out_ids)
             decoded_attn_weights.append(attn_weights)
 
         return decoded_ids, decoded_attn_weights
+
 
     def lexicalize_predictions(self, all_tokids, data_lexicalizations, id2word):
         """
