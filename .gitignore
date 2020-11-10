@@ -9,4 +9,5 @@ sandbox/
 components/evaluator/input_files/*
 predictions/*
 experiments/*
+e2e-dataset/vocab.txt
 
