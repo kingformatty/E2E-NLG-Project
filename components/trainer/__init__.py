@@ -171,7 +171,6 @@ class BaseTrainer(object):
             running_losses = ([loss_data] + running_losses)[:20]
             bar.dynamic_messages['train_loss'] = np.mean(running_losses)
             epoch_losses.append(loss_data)
-            break
 
         epoch_loss_avg = np.mean(epoch_losses)
 

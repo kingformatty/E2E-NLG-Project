@@ -78,5 +78,6 @@ class E2ESeq2SeqModel(Seq2SeqModel):
 def get_GRU_unit(gru_config):
     return nn.GRU(input_size=gru_config["input_size"],
                   hidden_size=gru_config["hidden_size"],
+                  num_layers=gru_config["num_layers"],
                   dropout=gru_config["dropout"],
                   bidirectional=gru_config.get("bidirectional", False))

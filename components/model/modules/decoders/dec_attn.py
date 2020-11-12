@@ -10,13 +10,14 @@ class DecoderRNNAttnBahd(DecoderRNNAttnBase):
     def __init__(self, rnn_config, output_size, prev_y_dim, enc_dim, enc_num_directions):
         super(DecoderRNNAttnBahd, self).__init__()
 
-        self.rnn = get_GRU_unit(rnn_config)
-
         # Setting attention
         dec_dim = rnn_config["hidden_size"]
-        self.attn_module = AttnBahd(enc_dim, dec_dim, enc_num_directions)
+        self.attn_module = AttnBahd(enc_dim, dec_dim, enc_num_directions, rnn_config["dropout"])
         self.W_combine = nn.Linear(prev_y_dim + enc_dim * enc_num_directions, dec_dim)
         self.W_out = nn.Linear(dec_dim, output_size)
+        self.drop_out = nn.Dropout(p=rnn_config["dropout"])
+        rnn_config["dropout"] = 0 if (rnn_config["num_layers"] == 1) else rnn_config["dropout"]
+        self.rnn = get_GRU_unit(rnn_config)
         self.log_softmax = nn.LogSoftmax(dim=-1)  # works with NLL loss
 
     def combine_context_run_rnn_step(self, prev_y_batch, prev_h_batch, context):
@@ -30,7 +31,7 @@ class DecoderRNNAttnBahd(DecoderRNNAttnBase):
         y_ctx = torch.cat((prev_y_batch, context.squeeze(1)), 1)  # B x (prev_y_dim+(enc_dim * num_enc_directions))
         rnn_input = self.W_combine(y_ctx)  # B x H
         output, decoder_hidden = self.rnn(rnn_input.unsqueeze(0), prev_h_batch)  # 1 x B x H, 1 x B x H
-
+        output = self.drop_out(output)
         return output, decoder_hidden
 
     def compute_output(self, rnn_output):

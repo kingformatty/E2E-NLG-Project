@@ -2,7 +2,7 @@ from torch import nn as nn
 
 
 class AttnBahd(nn.Module):
-    def __init__(self, enc_dim, dec_dim, num_directions, attn_dim=None):
+    def __init__(self, enc_dim, dec_dim, num_directions, dropout, attn_dim=None):
         """
         Attention mechanism
         :param enc_dim: Dimension of hidden states of the encoder h_j
@@ -15,6 +15,7 @@ class AttnBahd(nn.Module):
         self.h_dim = enc_dim
         self.s_dim = dec_dim
         self.a_dim = self.s_dim if attn_dim is None else attn_dim
+        self.dropout = dropout
         self.build()
 
     def build(self):
@@ -22,6 +23,7 @@ class AttnBahd(nn.Module):
         self.W = nn.Linear(self.s_dim, self.a_dim)
         self.v = nn.Linear(self.a_dim, 1)
         self.tanh = nn.Tanh()
+        self.drop_out = nn.Dropout(p=self.dropout)
         self.softmax = nn.Softmax(dim=-1)
 
     def precmp_U(self, enc_outputs):
@@ -54,7 +56,7 @@ class AttnBahd(nn.Module):
 
         # Compute U*h over length and batch (batch, source_l, attn_dim)
         uh = self.U(
-            enc_outputs.view(-1, self.h_dim)).view(src_seq_len, batch_size, self.a_dim)  # SL x B x self.attn_dim
+            enc_outputs.view(-1, enc_dim)).view(src_seq_len, batch_size, self.a_dim)  # SL x B x self.attn_dim
 
         # Compute W*s over the batch (batch, attn_dim)
         wq = self.W(prev_h_batch.view(-1, self.s_dim)).unsqueeze(0)  # 1 x B x self.a_dim
@@ -68,4 +70,4 @@ class AttnBahd(nn.Module):
 
         attn_weights = self.softmax(attn_unnorm_scores)  # B x SL
 
-        return attn_weights
+        return self.drop_out(attn_weights)
