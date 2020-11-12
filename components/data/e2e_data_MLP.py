@@ -83,6 +83,52 @@ class E2EMLPData(BaseDataClass):
 
         logger.debug("Skipped %d long sentences" % skipped_cnt)
         return (data_split_x, data_split_y)
+        
+    def data_to_token_ids_train_HIT(self, raw_x, raw_y):
+        """
+        Convert raw lists of tokens to numerical representations.
+
+        :param raw_x: a list of N instances, each being a list of MR values; N = size(dataset)
+        :param raw_y: a list of N instances, each being a list of tokens,
+        comprising textual description of the restaurant x
+        :return:
+        """
+
+        assert self.max_src_len is not None
+        assert self.max_tgt_len is not None
+
+        data_split_x = []
+        data_split_y = []
+        skipped_cnt = 0
+
+        for idx, x in enumerate(raw_x):
+            field_name=x[0]
+            field_value=x[1]
+            src_name=[self.vocab.get_word(tok) for tok in field_name]
+            src_value=[self.vocab.get_word(tok) for tok in field_value]
+            #src_ids = [self.vocab.get_word(tok) for tok in x]
+            #src_len = len(src_ids)
+            #print(src_name)
+            #print(src_value)
+            #feature map has shape as lenx2, one for field name, one for field value
+            feature=np.concatenate((np.array(src_name).reshape(len(src_name),1),np.array(src_value).reshape(len(src_value),1)),axis=1)
+            #print(feature.shape)
+            #break
+            y = raw_y[idx]
+            tgt_ids = [self.vocab.get_word(tok) for tok in y]
+            tgt_len = len(tgt_ids)
+
+            # Truncating long sentences
+            #if src_len > self.max_src_len or tgt_len >= self.max_tgt_len:
+            #    logger.info("Skipping long snt: %d (src) / %d (tgt)" % (src_len, tgt_len))
+            #    skipped_cnt += 1
+            #    continue
+
+            data_split_x.append(feature)
+            data_split_y.append(tgt_ids)
+        logger.debug("Skipped %d long sentences" % skipped_cnt)
+
+        return (data_split_x, data_split_y)
 
     def data_to_token_ids_test(self, raw_x):
         assert self.max_src_len is not None
@@ -147,7 +193,8 @@ class E2EMLPData(BaseDataClass):
                 x_ids, y_ids = sorted_data[idx]
 
                 x_ids_copy = copy.deepcopy(x_ids)
-                x_ids_copy.append(EOS_ID)
+
+                #x_ids_copy.append(EOS_ID)
                 batch_x.append(x_ids_copy)
 
                 y_ids_copy = copy.deepcopy(y_ids)

@@ -49,7 +49,10 @@ class BaseDataClass(object):
             logger.debug("Reading train data")
             train_x_raw, train_y_raw, train_lex = self.read_csv_train(train_data_fname, group_ref=False)
             self.lexicalizations['train'] = train_lex
-
+            #with open('experiments/train_lex','w') as f:
+            #    for i in train_lex:
+            #        f.write(str(i))
+            #        f.write('\n')
             # Read dev data, if the dev data filename is specified in the config file
             # Note that training only makes sense if we have both train and dev data
             if dev_data_fname is None:
@@ -70,6 +73,11 @@ class BaseDataClass(object):
 
         if train_x_raw is not None:
             self.train = self.data_to_token_ids_train(train_x_raw, train_y_raw)
+            #with open('experiments/original/train_token_ids','w') as f:
+                #for i in self.train:
+                #    f.write(str(i))
+                #    f.write('\n')
+            print(self.train[0])
             self.fnames['train'] = train_data_fname
 
         if dev_x_raw is not None:
@@ -79,7 +87,55 @@ class BaseDataClass(object):
         if test_x_raw is not None:
             self.test = self.data_to_token_ids_test(test_x_raw)
             self.fnames['test'] = test_data_fname
+            
+    def setup_HIT(self):
+        logger.info("Setting up the data using HIT Approach")
 
+        train_x_raw = train_y_raw = None
+        dev_x_raw = dev_y_raw = None
+        test_x_raw = test_y_raw = None
+
+        train_data_fname = self.config.get("train_data", None)
+        dev_data_fname = self.config.get("dev_data", None)
+        test_data_fname = self.config.get("test_data", None)
+        vocab_path = self.config.get("vocab_path", None)
+
+        # Read train data, if the train data filename is specified in the config file
+        if train_data_fname is not None:
+            logger.debug("Reading train data")
+            train_x_raw, train_y_raw= self.read_csv_train_HIT(train_data_fname, group_ref=False)
+            #self.lexicalizations['train'] = train_lex
+            # Read dev data, if the dev data filename is specified in the config file
+            # Note that training only makes sense if we have both train and dev data
+            if dev_data_fname is None:
+                raise Exception("No dev data in the config file!")
+
+            logger.debug("Reading dev data")
+            dev_x_raw, dev_y_raw= self.read_csv_train_HIT(dev_data_fname, group_ref=True)
+            #self.lexicalizations['dev'] = dev_lex
+
+        # Read test data, if test data filename is specified in the config file
+        if test_data_fname is not None:
+            logger.debug("Reading test data")
+            test_x_raw, test_y_raw, test_lex = self.read_csv_test(test_data_fname)
+            self.lexicalizations['test'] = test_lex
+
+        # Setup vocabulary
+        self.setup_vocab(vocab_path, train_x_raw, train_y_raw)
+
+        if train_x_raw is not None:
+            self.train = self.data_to_token_ids_train_HIT(train_x_raw, train_y_raw)
+            self.fnames['train'] = train_data_fname
+            
+        if dev_x_raw is not None:
+            self.dev = self.data_to_token_ids_train_HIT(dev_x_raw, dev_y_raw)
+            self.fnames['dev'] = dev_data_fname
+
+        if test_x_raw is not None:
+            self.test = self.data_to_token_ids_test(test_x_raw)
+            self.fnames['test'] = test_data_fname
+
+            
     def read_csv_train(self, fname, group_ref=False):
         """
         Read the CSV file containing training data.
@@ -135,12 +191,96 @@ class BaseDataClass(object):
                 else:
                     lexicalizations.append(this_lex)
                     curr_src = this_src
-
+        
         if group_ref:
             gen_multi_ref_dev(orig, fname='%s.multi-ref' % fname)
 
         return raw_data_x, raw_data_y, lexicalizations
+       
+    def read_csv_train_HIT(self, fname, group_ref=False):
+        """
+        Read the CSV file containing training data.
 
+        :param fname:
+        :param group_ref: group multiple references, if possible (dev set)
+        :return: 3 lists:
+            - MR instances
+            - corresponding textual descriptions
+            - lexicalizations of ['name', 'near'] for each instance
+        """
+
+        raw_data_x = []
+        raw_data_y = []
+        lexicalizations = []
+
+        orig = []
+        with open(fname, 'r') as csv_file:
+            reader = csv.reader(csv_file, delimiter=',', quotechar='"')
+            header = next(reader)
+
+            # Files should have headers
+            assert header == ['mr', 'ref'], 'The file does not contain a header!'
+
+            first_row = next(reader)
+            curr_mr = first_row[0]
+            curr_snt = first_row[1]
+            orig.append((curr_mr, curr_snt))
+
+            #curr_src, curr_lex = self.process_e2e_mr(curr_mr)
+            #curr_text = self.tokenize(curr_snt, curr_lex)
+            
+            curr_field_names,curr_field_values=self.process_e2e_mr_hit(curr_mr)
+            curr_text=self.tokenize_hit(curr_snt)
+            
+            # add raw data instance
+            raw_data_x.append((curr_field_names,curr_field_values))
+            raw_data_y.append(curr_text)
+            #lexicalizations.append(curr_lex)
+
+            for row in list(reader):
+                mr = row[0]
+                text = row[1]
+                orig.append((mr, text))
+
+                this_field_names,this_field_values= self.process_e2e_mr_hit(mr)
+                this_text = self.tokenize_hit(text)
+
+                # add raw data instance
+                raw_data_x.append((this_field_names,this_field_values))
+                raw_data_y.append(this_text)
+
+                #if this_src == curr_src:
+                #    continue
+
+                #else:
+                #    lexicalizations.append(this_lex)
+                #    curr_src = this_src
+                    
+        #with open('experiments/HIT/raw_data_x','w') as f:
+        #    for i in raw_data_x:
+        #        f.write(str(i))
+        #        f.write('\n')
+        if group_ref:
+            gen_multi_ref_dev(orig, fname='%s.multi-ref' % fname)
+
+        return raw_data_x, raw_data_y
+    
+    def process_e2e_mr_hit(self,mr):
+        mr_select_1=mr.split(',')
+        mr_select_2=[]
+        for i in mr_select_1:
+            k=i.replace('[',' ')
+            h=k.replace(']',' ')
+            mr_select_2.append(h)
+        field_names=[]
+        field_values=[]
+        for i in mr_select_2:
+            element=i.split()
+            for j in range(len(element)-1):
+                field_names.append(element[0])
+                field_values.append(element[j+1])
+        return field_names,field_values
+            
     def read_csv_test(self, fname):
         raw_data_x = []
         lexicalizations = []
@@ -203,6 +343,32 @@ class BaseDataClass(object):
 
         return tokens
 
+    def tokenize_hit(self, s):
+        """
+        A simple procedure to tokenize a string.
+
+        :param s: string to be tokenized
+        :param lex_list: list of lexicalizations
+        :return: list of tokens from sting s
+        """
+
+        words = []
+
+        # Delexicalize target side
+        #if lex_list:
+        #    for l, t in zip(lex_list, (NAME_TOKEN, NEAR_TOKEN)):
+        #        if l:
+        #            s = s.replace(l, t)
+
+        # Process target side text
+        for fragment in s.strip().split():
+            fragment_tokens = _WORD_SPLIT.split(fragment)
+            words.extend(fragment_tokens)
+
+        tokens = [w for w in words if w]
+
+        return tokens
+    
     def tokenize(self, s, lex_list=None):
         """
         A simple procedure to tokenize a string.
@@ -238,6 +404,9 @@ class BaseDataClass(object):
     def data_to_token_ids_train(self, *args, **kwargs):
         raise NotImplementedError()
 
+    def data_to_token_ids_train_HIT(self, *args, **kwargs):
+        raise NotImplementedError()
+        
     def data_to_token_ids_test(self, *args, **kwargs):
         raise NotImplementedError()
 
