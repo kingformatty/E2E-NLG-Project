@@ -19,7 +19,8 @@ class BaseEvaluator(object):
         return tokens, ' '.join(tokens)
 
     def predict_one(self, model, src_snt_ids):
-        input_var = ids2var(src_snt_ids, -1, 1, addEOS=True)  # batch_size = 1; cudified
+        addEOS = not model.hit_input
+        input_var = ids2var(src_snt_ids, -1, 1, addEOS=addEOS)  # batch_size = 1; cudified
         output_ids, attention_weights = model.predict(input_var)
         return output_ids, attention_weights
 

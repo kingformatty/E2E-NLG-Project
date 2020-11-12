@@ -7,13 +7,11 @@ import logging
 from components.data import BaseDataClass
 from components.data.vocabulary import VocabularyShared
 from components.data.common import EOS_ID, PAD_ID, pad_snt
-from components.constants import NAME_TOKEN, NEAR_TOKEN, MR_KEYMAP
+from components.constants import MR_HAV_TOKENS
 
 logger = logging.getLogger('experiment')
-MR_KEY_NUM = len(MR_KEYMAP)
 
-
-class E2EMLPData(BaseDataClass):
+class E2EHAVData(BaseDataClass):
     def process_e2e_mr(self, mr_string):
         """
         Processing E2E NLG Challenge meaning representation
@@ -23,28 +21,16 @@ class E2EMLPData(BaseDataClass):
         :return:
         """
         items = mr_string.split(", ")
-        mr_data = [PAD_ID] * MR_KEY_NUM
-        lex = [None, None]  # holds lexicalized variants of NAME and NEAR
+        mr_data = []
+        lex = None # we don't use lexicalization here.
 
         for idx, item in enumerate(items):
             key, raw_val = item.split("[")
-            key_idx = MR_KEYMAP[key]
-
-            # Delexicalization of the 'name' field
-            if key == 'name':
-                mr_val = NAME_TOKEN
-                lex[0] = raw_val[:-1]
-
-            # Delexicalization of the 'near' field
-            elif key == 'near':
-                mr_val = NEAR_TOKEN
-                lex[1] = raw_val[:-1]
-
-            else:
-                mr_val = raw_val[:-1]
-
-            mr_data[key_idx] = mr_val
-
+            s_token, e_token = MR_HAV_TOKENS[key]
+            curr_tokens = raw_val[:-1].split(' ')
+            curr_tokens.insert(0, s_token)
+            curr_tokens.append(e_token)
+            mr_data.extend(curr_tokens)
         return mr_data, lex
 
     def data_to_token_ids_train(self, raw_x, raw_y):
@@ -83,7 +69,7 @@ class E2EMLPData(BaseDataClass):
 
         logger.debug("Skipped %d long sentences" % skipped_cnt)
         return (data_split_x, data_split_y)
-        
+
     def data_to_token_ids_test(self, raw_x):
         assert self.max_src_len is not None
         data_split_x = []
@@ -114,11 +100,10 @@ class E2EMLPData(BaseDataClass):
 
         elif mode == "no_shuffling":
             indices = np.arange(data_size)
-        
+
         elif mode == "shuffling":
             indices = np.arange(data_size)
             np.random.shuffle(indices)
-
         else:
             raise NotImplementedError()
 
@@ -151,7 +136,6 @@ class E2EMLPData(BaseDataClass):
                 x_ids, y_ids = sorted_data[idx]
 
                 x_ids_copy = copy.deepcopy(x_ids)
-                x_ids_copy.append(EOS_ID)
                 batch_x.append(x_ids_copy)
 
                 y_ids_copy = copy.deepcopy(y_ids)
@@ -175,4 +159,4 @@ class E2EMLPData(BaseDataClass):
         self.vocab = VocabularyShared(vocab_path, train_x_raw, train_y_raw, lower=False)  # TODO: lower!
 
 
-component = E2EMLPData
+component = E2EHAVData

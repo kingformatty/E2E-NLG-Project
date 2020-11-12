@@ -18,3 +18,16 @@ START_VOCAB = [PAD_TOKEN,
 
 MR_FIELDS = ["name", "familyFriendly", "eatType", "food", "priceRange", "near", "area", "customer rating"]
 MR_KEYMAP = dict((key, idx) for idx, key in enumerate(MR_FIELDS))
+
+
+MR_HAV_TOKENS = {"name": ['<s_name>', '<e_name>'],
+                 "familyFriendly": ['<s_family>', '<e_family>'], 
+                 "eatType": ['<s_eatType>', '<e_eatType>'], 
+                 "food": ['<s_food>', '<e_food>'], 
+                 "priceRange": ['<s_priceRange>', '<e_priceRange>'], 
+                 "near": ['<s_near>', '<e_near>'], 
+                 "area": ['<s_area>', '<e_area>'], 
+                 "customer rating": ['<s_customerRating>', '<e_customerRating>']
+                }
+
+

@@ -8,3 +8,4 @@ class EncoderGRU(EncoderRNN):
 
         self.config = config
         self.rnn = get_GRU_unit(config)
+

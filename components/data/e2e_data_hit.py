@@ -13,7 +13,7 @@ logger = logging.getLogger('experiment')
 MR_KEY_NUM = len(MR_KEYMAP)
 
 
-class E2EMLPData(BaseDataClass):
+class E2EHITData(BaseDataClass):
     def process_e2e_mr(self, mr_string):
         """
         Processing E2E NLG Challenge meaning representation
@@ -23,28 +23,24 @@ class E2EMLPData(BaseDataClass):
         :return:
         """
         items = mr_string.split(", ")
-        mr_data = [PAD_ID] * MR_KEY_NUM
+        mr_data = []
         lex = [None, None]  # holds lexicalized variants of NAME and NEAR
 
         for idx, item in enumerate(items):
             key, raw_val = item.split("[")
-            key_idx = MR_KEYMAP[key]
 
-            # Delexicalization of the 'name' field
             if key == 'name':
                 mr_val = NAME_TOKEN
                 lex[0] = raw_val[:-1]
-
-            # Delexicalization of the 'near' field
             elif key == 'near':
                 mr_val = NEAR_TOKEN
                 lex[1] = raw_val[:-1]
-
             else:
                 mr_val = raw_val[:-1]
-
-            mr_data[key_idx] = mr_val
-
+    
+            for token in mr_val.split():
+                mr_data.extend([key, token])
+        
         return mr_data, lex
 
     def data_to_token_ids_train(self, raw_x, raw_y):
@@ -83,7 +79,7 @@ class E2EMLPData(BaseDataClass):
 
         logger.debug("Skipped %d long sentences" % skipped_cnt)
         return (data_split_x, data_split_y)
-        
+
     def data_to_token_ids_test(self, raw_x):
         assert self.max_src_len is not None
         data_split_x = []
@@ -151,7 +147,6 @@ class E2EMLPData(BaseDataClass):
                 x_ids, y_ids = sorted_data[idx]
 
                 x_ids_copy = copy.deepcopy(x_ids)
-                x_ids_copy.append(EOS_ID)
                 batch_x.append(x_ids_copy)
 
                 y_ids_copy = copy.deepcopy(y_ids)
@@ -175,4 +170,4 @@ class E2EMLPData(BaseDataClass):
         self.vocab = VocabularyShared(vocab_path, train_x_raw, train_y_raw, lower=False)  # TODO: lower!
 
 
-component = E2EMLPData
+component = E2EHITData

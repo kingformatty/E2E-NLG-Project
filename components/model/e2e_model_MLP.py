@@ -13,6 +13,7 @@ from components.model.modules.decoders.dec_attn import DecoderRNNAttnBahd
 
 class E2EMLPModel(E2ESeq2SeqModel):
     def set_encoder(self):
+        self.hit_input = self.config["hit_input"]
         encoder_params = self.config["encoder_params"]
         self.encoder = EncoderMLP(encoder_params)
 
@@ -34,9 +35,7 @@ class E2EMLPModel(E2ESeq2SeqModel):
         # batch_x_var: SL x B
         # batch_y_var: TL x B
         batch_x_var, batch_y_var = datum
-
-        # Embedding lookup
-        encoder_input_embedded = self.embedding_lookup(batch_x_var)  # SL x B x E
+        encoder_input_embedded = self.embedding(batch_x_var)
         encoder_input_embedded = self.embedding_dropout_layer(encoder_input_embedded)
 
         # Encode embedded input
@@ -56,6 +55,20 @@ class E2EMLPModel(E2ESeq2SeqModel):
             logits = self.decode_dynamic(batch_y_var, encoder_hidden, encoder_outputs)
 
         return logits
+
+    def embedding(self, batch_x_var):
+        # Embedding lookup
+        if self.hit_input:
+            seq_len, batch_size = batch_x_var.size()
+            seq_len = seq_len // 2
+            batch_x_var = batch_x_var.view(-1, 2, batch_size).transpose(-1, -2)
+
+        encoder_input_embedded = self.embedding_lookup(batch_x_var)  # SL x B x E
+
+        if self.hit_input:
+            encoder_input_embedded = encoder_input_embedded.view(seq_len, batch_size, -1)
+        
+        return encoder_input_embedded
 
     def decode_teacher(self, dec_input_var, encoder_hidden, encoder_outputs):
         """
@@ -124,7 +137,7 @@ class E2EMLPModel(E2ESeq2SeqModel):
     def predict(self, input_var):
 
         # Embedding lookup
-        encoder_input_embedded = self.embedding_lookup(input_var)
+        encoder_input_embedded = self.embedding(input_var)
 
         # Encode
         encoder_outputs, encoder_hidden = self.encoder(encoder_input_embedded)

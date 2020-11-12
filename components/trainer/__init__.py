@@ -154,7 +154,7 @@ class BaseTrainer(object):
 
     def train_epoch(self, epoch_idx, model, train_batches):
 
-        np.random.shuffle(train_batches)  # shuffling data
+        #np.random.shuffle(train_batches)  # shuffling data
         running_losses = []
         epoch_losses = []
 
@@ -171,6 +171,7 @@ class BaseTrainer(object):
             running_losses = ([loss_data] + running_losses)[:20]
             bar.dynamic_messages['train_loss'] = np.mean(running_losses)
             epoch_losses.append(loss_data)
+            break
 
         epoch_loss_avg = np.mean(epoch_losses)
 
