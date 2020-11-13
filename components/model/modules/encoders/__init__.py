@@ -1,9 +1,9 @@
 # Based on: https://github.com/spro/practical-pytorch/blob/master/seq2seq-translation/seq2seq-translation-batched.ipynb
+# Based on harvard nlp "The Annotated Transformer" https://nlp.seas.harvard.edu/2018/04/03/attention.html
 
 import torch
 from torch import nn as nn
 from torch.autograd import Variable
-from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 from components.data.common import cuda_if_gpu
 
 
@@ -46,3 +46,7 @@ class EncoderRNN(nn.Module):
     def num_directions(self):
         nd = 2 if self.rnn.bidirectional else 1
         return nd
+
+
+
+

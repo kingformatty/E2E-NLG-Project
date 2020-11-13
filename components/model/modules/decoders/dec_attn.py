@@ -12,6 +12,7 @@ class DecoderRNNAttnBahd(DecoderRNNAttnBase):
 
         # Setting attention
         dec_dim = rnn_config["hidden_size"]
+        self.dec_dim = dec_dim
         self.attn_module = AttnBahd(enc_dim, dec_dim, enc_num_directions, rnn_config["dropout"])
         self.W_combine = nn.Linear(prev_y_dim + enc_dim * enc_num_directions, dec_dim)
         self.W_out = nn.Linear(dec_dim, output_size)

@@ -81,6 +81,11 @@ class BaseTrainer(object):
         model_summary = torch_summarize(model)
         logger.debug(model_summary)
 
+        num_param = 0
+        for name, param in model.named_parameters():
+            num_param += param.numel()
+        print("Number of parameters: {}".format(num_param))
+
         evaluator = BaseEvaluator(self.config)
         logger.debug("Preparing training data")
 
@@ -103,9 +108,11 @@ class BaseTrainer(object):
             epoch_start = time.time()
             pred_fn = os.path.join(self.model_dir, 'predictions.epoch%d' % epoch_idx)
 
+            model.train()
             train_loss = self.train_epoch(epoch_idx, model, train_batches)
+            
+            model.eval()
             dev_loss = self.compute_val_loss(model, dev_batches)
-
             predicted_ids, attention_weights = evaluator.evaluate_model(model, data.dev[0])
             predicted_tokens = evaluator.lexicalize_predictions(predicted_ids,
                                                                 dev_lexicalizations,

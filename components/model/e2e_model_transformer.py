@@ -7,23 +7,19 @@ from torch.autograd import Variable
 from components.data.common import cuda_if_gpu
 from components.constants import BOS_ID, EOS_ID
 from components.model import E2ESeq2SeqModel
-from components.model.modules.encoders.enc_rnn import EncoderGRU
-from components.model.modules.decoders.dec_attn import DecoderRNNAttnBahd
+from components.model.modules.encoders.enc_transformer import Encoder
+from components.model.modules.decoders.dec_transformer import Decoder
 
 
-class E2EGRUModel(E2ESeq2SeqModel):
+class E2ETransformer(E2ESeq2SeqModel):
     def set_encoder(self):
         self.hit_input = self.config["hit_input"]
         encoder_params = self.config["encoder_params"]
-        self.encoder = EncoderGRU(encoder_params)
+        self.encoder = Encoder(encoder_params)
 
     def set_decoder(self):
         decoder_rnn_params = self.config["decoder_params"]
-        self.decoder = DecoderRNNAttnBahd(rnn_config=decoder_rnn_params,
-                                          output_size=self.tgt_vocab_size,
-                                          prev_y_dim=self.embedding_dim,
-                                          enc_dim=self.encoder.hidden_size,
-                                          enc_num_directions=self.encoder.num_directions)
+        self.decoder = Decoder(decoder_rnn_params)
 
     def forward(self, datum):
         """
@@ -81,7 +77,7 @@ class E2EGRUModel(E2ESeq2SeqModel):
 
         dec_len = dec_input_var.size()[0]
         batch_size = dec_input_var.size()[1]
-        dec_hidden = cuda_if_gpu(torch.zeros(1, batch_size, self.decoder.dec_dim)) #encoder_hidden[0:1]
+        dec_hidden = encoder_hidden[0:1]
         dec_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
         predicted_logits = cuda_if_gpu(Variable(torch.zeros(dec_len, batch_size, self.tgt_vocab_size)))
 
@@ -100,40 +96,6 @@ class E2EGRUModel(E2ESeq2SeqModel):
 
         return predicted_logits
 
-    def decode_dynamic(self, dec_input_var, encoder_hidden, encoder_outputs):
-
-        """
-        Decoding policy 2: feeding the previous prediction as a target
-        :param dec_input_var: ground truth labels (used only to get the shape, not for decoding)
-        :param encoder_hidden: the last hidden state of the Encoder RNN; (num_layers * num_directions) x B x enc_dim
-        :param encoder_outputs: SL x B x enc_dim
-        :return:
-        """
-        dec_len = dec_input_var.size()[0]
-        batch_size = dec_input_var.size()[1]
-        dec_hidden = encoder_hidden
-        dec_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
-        predicted_logits = cuda_if_gpu(Variable(torch.zeros(dec_len, batch_size, self.tgt_vocab_size)))
-
-        # Dynamic decoding: feed the previous prediction as the next input
-        for di in range(dec_len):
-            prev_y = self.embedding_mat(dec_input)  # B x E
-            # prev_y = self.dropout(prev_y)
-            dec_output, dec_hidden, attn_weights = self.decoder(prev_y, dec_hidden, encoder_outputs)
-            # shapes:
-            # - dec_output: B, TV
-            # - dec_hidden: 1, B, dec_dim
-            # - attn_weights: B x SL
-
-            predicted_logits[di] = dec_output
-            topval, topidx = dec_output.data.topk(1)
-            dec_input = cuda_if_gpu(Variable(
-                torch.LongTensor(topidx.squeeze().cpu().numpy())
-            )
-            )
-
-        return predicted_logits
-
     def predict(self, input_var):
 
         # Embedding lookup
@@ -146,9 +108,8 @@ class E2EGRUModel(E2ESeq2SeqModel):
         dec_ids, attn_w = [], []
         curr_token_id = BOS_ID
         curr_dec_idx = 0
-        batch_size = input_var.size()[1]
         dec_input_var = cuda_if_gpu(Variable(torch.LongTensor([curr_token_id])))
-        dec_hidden = cuda_if_gpu(torch.zeros(1, batch_size, self.decoder.dec_dim))  # 1 x B x enc_dim
+        dec_hidden = encoder_hidden[:1]  # 1 x B x enc_dim
 
         while (curr_token_id != EOS_ID and curr_dec_idx <= self.max_tgt_len):
             prev_y = self.embedding_mat(dec_input_var)
@@ -167,4 +128,4 @@ class E2EGRUModel(E2ESeq2SeqModel):
         return dec_ids, attn_w
 
 
-component = E2EGRUModel
+component = E2ETransformer

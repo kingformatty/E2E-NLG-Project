@@ -147,7 +147,7 @@ class E2EMLPModel(E2ESeq2SeqModel):
         curr_token_id = BOS_ID
         curr_dec_idx = 0
         dec_input_var = cuda_if_gpu(Variable(torch.LongTensor([curr_token_id])))
-        dec_hidden = encoder_hidden[:1]  # 1 x B x enc_dim
+        dec_hidden = encoder_hidden  # 1 x B x enc_dim
 
         while (curr_token_id != EOS_ID and curr_dec_idx <= self.max_tgt_len):
             prev_y = self.embedding_mat(dec_input_var)

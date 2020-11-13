@@ -53,7 +53,6 @@ class AttnBahd(nn.Module):
         """
 
         src_seq_len, batch_size, enc_dim = enc_outputs.size()
-
         # Compute U*h over length and batch (batch, source_l, attn_dim)
         uh = self.U(
             enc_outputs.view(-1, enc_dim)).view(src_seq_len, batch_size, self.a_dim)  # SL x B x self.attn_dim
