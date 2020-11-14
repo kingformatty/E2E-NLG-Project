@@ -1,4 +1,4 @@
-experiments_dir: ./exp
+experiments_dir: ./exp2
 log_level: INFO
 random_seed: 1
 
@@ -7,11 +7,11 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: exp/e2e_model_gru_seed1-emb256-hid256-drop0-bs32-lr0.0002_2020-Nov-12_15:59:06/weights.epoch4
+model_fn: exp2/e2e_model_tfenc_seed1-emb256-hid256-drop0.1-bs32-lr0.0002_2020-Nov-13_20:23:36/weights.epoch2
 
 # Model module names
 data-module: components.data.e2e_data_MLP
-model-module: components.model.e2e_model_gru
+model-module: components.model.e2e_model_tfenc
 training-module: components.trainer.e2e_trainer_MLP
 evaluation-module: components.evaluator.e2e_evaluator
 
@@ -35,8 +35,10 @@ model_params:
   encoder_params:
     input_size: 256 # NOTE: should be equal to embedding_dim
     hidden_size: 256
-    num_layers: 1
+    num_layers: 4
     dropout: 0.0
+    n_head: 4
+    d_ff: 512
     bidirectional: True
 
   decoder_params:
@@ -48,7 +50,7 @@ model_params:
 training_params:
   evaluate_prediction: True
   save_model_each_epoch: True
-  n_epochs: 30
+  n_epochs: 15
   batch_size: 32
   optimizer: Adam
   learning_rate: 0.0002

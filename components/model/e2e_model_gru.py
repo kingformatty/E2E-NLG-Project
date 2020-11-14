@@ -66,7 +66,8 @@ class E2EGRUModel(E2ESeq2SeqModel):
         encoder_input_embedded = self.embedding_lookup(batch_x_var)  # SL x B x E
 
         if self.hit_input:
-            encoder_input_embedded = encoder_input_embedded.view(seq_len, batch_size, -1)
+            #encoder_input_embedded = encoder_input_embedded.view(seq_len, batch_size, -1)
+            encoder_input_embedded = encoder_input_embedded[:,:,0] + encoder_input_embedded[:,:,1]
         
         return encoder_input_embedded
 

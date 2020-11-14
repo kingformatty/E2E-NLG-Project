@@ -3,6 +3,12 @@
 The code of our course project is modified based on
 [https://github.com/UKPLab/e2e-nlg-challenge-2017](https://github.com/UKPLab/e2e-nlg-challenge-2017)
 
+We found a big error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68)
+
+We have already fixed it for our course project.
+
+Transformer encoder is updated.
+
 
 # E2E NLG Challenge submission 
 

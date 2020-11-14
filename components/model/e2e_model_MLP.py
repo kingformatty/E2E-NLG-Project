@@ -81,7 +81,7 @@ class E2EMLPModel(E2ESeq2SeqModel):
 
         dec_len = dec_input_var.size()[0]
         batch_size = dec_input_var.size()[1]
-        dec_hidden = encoder_hidden
+        dec_hidden = cuda_if_gpu(torch.zeros(1, batch_size, self.decoder.dec_dim))
         dec_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
         predicted_logits = cuda_if_gpu(Variable(torch.zeros(dec_len, batch_size, self.tgt_vocab_size)))
 
@@ -146,8 +146,9 @@ class E2EMLPModel(E2ESeq2SeqModel):
         dec_ids, attn_w = [], []
         curr_token_id = BOS_ID
         curr_dec_idx = 0
+        batch_size = input_var.size()[1]
         dec_input_var = cuda_if_gpu(Variable(torch.LongTensor([curr_token_id])))
-        dec_hidden = encoder_hidden  # 1 x B x enc_dim
+        dec_hidden = cuda_if_gpu(torch.zeros(1, batch_size, self.decoder.dec_dim))  # 1 x B x enc_dim
 
         while (curr_token_id != EOS_ID and curr_dec_idx <= self.max_tgt_len):
             prev_y = self.embedding_mat(dec_input_var)

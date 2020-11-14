@@ -65,7 +65,7 @@ class AttnBahd(nn.Module):
         wquh = self.tanh(wq3d + uh)
 
         # v^T*wquh over length and batch
-        attn_unnorm_scores = self.v(wquh.view(-1, self.a_dim)).view(batch_size, src_seq_len)
+        attn_unnorm_scores = self.v(wquh.view(-1, self.a_dim)).view(src_seq_len, batch_size).transpose(0,1)
 
         attn_weights = self.softmax(attn_unnorm_scores)  # B x SL
 
