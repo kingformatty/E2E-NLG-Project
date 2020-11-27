@@ -49,6 +49,7 @@ def run(config_dict):
         load_model(model, model_fname)
         if torch.cuda.is_available():
             model = model.cuda()
+            model.eval()
         id2word = data.vocab.id2tok
 
         if 'dev' in data.fnames:

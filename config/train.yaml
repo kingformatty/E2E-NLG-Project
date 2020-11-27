@@ -1,4 +1,4 @@
-experiments_dir: ./exp2
+experiments_dir: ./exp3
 log_level: INFO
 random_seed: 1
 
@@ -34,15 +34,15 @@ model_params:
 
   encoder_params:
     input_size: 256 # NOTE: should be twice of the embedding_dim if use hit input
-    hidden_size: 256
-    num_layers: 4
-    dropout: 0.1
+    hidden_size: 768
+    num_layers: 2
+    dropout: 0
     n_head: 4
     d_ff: 512
     #bidirectional: True
 
   decoder_params:
-    input_size: 512
+    #input_size: 512
     hidden_size: 512
     num_layers: 1
     dropout: 0

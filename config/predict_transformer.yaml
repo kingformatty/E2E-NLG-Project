@@ -7,11 +7,11 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: exp2/e2e_model_tfenc_seed1-emb256-hid768-drop0-bs32-lr0.0002_2020-Nov-26_22:43:05/weights.epoch6
+model_fn: exp3/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs32-lr0.0002_2020-Nov-27_12:44:54/weights.epoch3
 
 # Model module names
 data-module: components.data.e2e_data_MLP
-model-module: components.model.e2e_model_tfenc
+model-module: components.model.e2e_model_transformer
 training-module: components.trainer.e2e_trainer_MLP
 evaluation-module: components.evaluator.e2e_evaluator
 
@@ -34,18 +34,20 @@ model_params:
 
   encoder_params:
     input_size: 256 # NOTE: should be equal to embedding_dim
-    hidden_size: 768
+    hidden_size: 512
+    num_layers: 4
+    dropout: 0.0
+    n_head: 4
+    d_ff: 512
+    #bidirectional: True
+
+  decoder_params:
+    input_size: 256
+    hidden_size: 512
     num_layers: 2
     dropout: 0.0
     n_head: 4
     d_ff: 512
-    bidirectional: True
-
-  decoder_params:
-    input_size: 512
-    hidden_size: 512
-    num_layers: 1
-    dropout: 0.0
 
 training_params:
   evaluate_prediction: True

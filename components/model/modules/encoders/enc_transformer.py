@@ -7,14 +7,16 @@ from components.model.modules import PositionwiseFeedForward, PositionalEncoding
 
 class Encoder(nn.Module):
     "Core encoder is a stack of N layers"
-    def __init__(self, layer, N):
+    def __init__(self, preNet, layer, N):
         super(Encoder, self).__init__()
+        self.pre_net = preNet
         self.layers = clones(layer, N)
         self.norm = LayerNorm(layer.size)
         self.hidden_size = self.layers[0].size
         
     def forward(self, x, mask):
         "Pass the input (and mask) through each layer in turn."
+        x = self.pre_net(x)
         for layer in self.layers:
             x = layer(x, mask)
         return self.norm(x)
@@ -36,7 +38,8 @@ class EncoderLayer(nn.Module):
 def make_encoder(encoder_params):
    
     d_model = encoder_params["hidden_size"]
-    assert d_model == encoder_params["input_size"]
+    input_size = encoder_params["input_size"]
+    #assert d_model == encoder_params["input_size"]
     N = encoder_params["num_layers"]
     dropout = encoder_params["dropout"]
     h = encoder_params["n_head"]
@@ -45,7 +48,8 @@ def make_encoder(encoder_params):
     c = copy.deepcopy
     attn = MultiHeadedAttention(h, d_model)
     ff = PositionwiseFeedForward(d_model, d_ff, dropout)
-    model = Encoder(EncoderLayer(d_model, c(attn), c(ff), dropout), N)
+    model = Encoder(nn.Sequential(nn.Linear(input_size, d_model), nn.ReLU()), 
+                    EncoderLayer(d_model, c(attn), c(ff), dropout), N)
     
     # This was important from their code. 
     # Initialize parameters with Glorot / fan_avg.

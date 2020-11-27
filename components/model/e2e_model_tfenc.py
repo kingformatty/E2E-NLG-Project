@@ -35,8 +35,6 @@ class E2ETFEnc(E2ESeq2SeqModel):
         # batch_x_var: SL x B
         # batch_y_var: TL x B
         batch_x_var, batch_y_var = datum
-        #import pdb
-        #pdb.set_trace()
         encoder_input_embedded = self.embedding(batch_x_var)
         encoder_input_embedded = self.embedding_dropout_layer(encoder_input_embedded).transpose(0,1)
 

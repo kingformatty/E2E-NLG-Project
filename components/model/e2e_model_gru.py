@@ -159,6 +159,7 @@ class E2EGRUModel(E2ESeq2SeqModel):
             attn_w.append(decoder_attention.data)
 
             topval, topidx = decoder_output.data.topk(1)
+            # Todo:   beam: 10   topk(10)
             curr_token_id = topidx[0][0]
             dec_ids.append(curr_token_id)
             dec_input_var = cuda_if_gpu(Variable(torch.LongTensor([curr_token_id])))
@@ -166,6 +167,7 @@ class E2EGRUModel(E2ESeq2SeqModel):
             curr_dec_idx += 1
 
         return dec_ids, attn_w
+
 
 
 component = E2EGRUModel

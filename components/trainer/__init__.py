@@ -31,6 +31,9 @@ class BaseTrainer(object):
         self.model_dir = self.config["model_dir"]
         self.evaluate_prediction = self.config["evaluate_prediction"]
         self.save_model = self.config["save_model_each_epoch"]
+        if self.config["optimizer"] == "Warmup":
+            self.warmup_step = self.config["warmup_step"]
+            self.factor = self.config["factor"]
 
         self.use_cuda = torch.cuda.is_available()
 
@@ -216,6 +219,10 @@ class BaseTrainer(object):
         elif opt_name == 'RMSprop':
             self.optimizer = optim.RMSprop(params=model.parameters(), lr=self.lr)
 
+        elif opt_name == "Warmup":
+            self.optimizer = NoamOpt(model.model_size, self.factor, self.warmup_step,
+                                       optim.Adam(model.parameters(), lr=0, betas=(0.9, 0.98), eps=1e-9))
+        
         else:
             raise NotImplementedError()
 
@@ -232,3 +239,34 @@ class BaseTrainer(object):
     def score_file_header(self):
         HEADER = ['bleu', 'nist', 'cider', 'rouge', 'meteor', 'train_loss', 'dev_loss']
         return HEADER
+
+
+class NoamOpt:
+    "Optim wrapper that implements rate."
+    def __init__(self, model_size, factor, warmup, optimizer):
+        self.optimizer = optimizer
+        self._step = 0
+        self.warmup = warmup
+        self.factor = factor
+        self.model_size = model_size
+        self._rate = 0
+        
+    def step(self):
+        "Update parameters and rate"
+        self._step += 1
+        rate = self.rate()
+        for p in self.optimizer.param_groups:
+            p['lr'] = rate
+        self._rate = rate
+        self.optimizer.step()
+        
+    def rate(self, step = None):
+        "Implement `lrate` above"
+        if step is None:
+            step = self._step
+        return self.factor * (self.model_size ** (-0.5) *
+            min(step ** (-0.5), step * self.warmup ** (-1.5)))
+
+    def zero_grad(self):
+        self.optimizer.zero_grad()
+
