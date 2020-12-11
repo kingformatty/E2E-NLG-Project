@@ -1,5 +1,5 @@
 import logging
-
+import pdb
 from components.constants import NAME_TOKEN, NEAR_TOKEN
 from components.data.common import ids2var
 
@@ -24,7 +24,13 @@ class BaseEvaluator(object):
         output_ids, attention_weights = model.predict(input_var)
         return output_ids, attention_weights
 
-    def evaluate_model(self, model, dev_data):
+    def predict_one_dev(self, model,src_snt_ids,nos):
+        addEOS = not model.hit_input
+        input_var = ids2var(src_snt_ids, -1, 1, addEOS=addEOS)
+        output_ids, attention_weights = model.predict_dev(input_var,nos)
+        return output_ids, attention_weights
+        
+    def evaluate_model(self, model, dev_data, dev_data_tgt):
         """
         Evaluating model on multi-ref data
         :param model:
@@ -37,21 +43,33 @@ class BaseEvaluator(object):
 
         # Make a prediction on the first input
         curr_x_ids = dev_data[0]
-        out_ids, attn_weights = self.predict_one(model, curr_x_ids)
+        curr_tgt_ids = dev_data_tgt[0]
+        nos=0
+        cnt=1
+        for i in range(len(curr_tgt_ids)):
+            if curr_tgt_ids[i]==41:
+                nos+=1
+        out_ids, attn_weights = self.predict_one_dev(model, curr_x_ids, nos)
+        #pdb.set_trace()
         decoded_ids.append(out_ids)
         decoded_attn_weights.append(attn_weights)
 
         # Make predictions on the remaining unique (!) inputs
         for snt_ids in dev_data[1:]:
-
+            nos=0
+            curr_tgt_ids = dev_data_tgt[cnt]
+            for j in range(len(curr_tgt_ids)):
+                if curr_tgt_ids[j]==41:
+                    nos+=1
             if snt_ids == curr_x_ids:
                 continue
             else:
-                out_ids, attn_weights = self.predict_one(model, snt_ids)
+                
+                out_ids, attn_weights = self.predict_one_dev(model, snt_ids,nos)
                 decoded_ids.append(out_ids)
                 decoded_attn_weights.append(attn_weights)
                 curr_x_ids = snt_ids
-
+            cnt += 1
         return decoded_ids, decoded_attn_weights
 
     def evaluate_model_test(self, model, test_data):

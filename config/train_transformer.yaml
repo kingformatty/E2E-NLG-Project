@@ -1,4 +1,4 @@
-experiments_dir: ./exp3
+experiments_dir: ./exp_transformer
 log_level: INFO
 random_seed: 1
 
@@ -17,7 +17,7 @@ evaluation-module: components.evaluator.e2e_evaluator
 
 data_params:
 
-  train_data: ./e2e-dataset/trainset.csv
+  train_data: ./e2e-dataset/trainset_normalize_0.csv
   dev_data: ./e2e-dataset/devset.csv
   test_data:
   vocab_path: ./e2e-dataset/UKP_vocab.txt    # should be changed for different input 
@@ -27,10 +27,13 @@ data_params:
 
 model_params:
   hit_input: False   #True if use HIT input
-
+  
   embedding_dim: 256
   embedding_dropout: 0
   teacher_forcing_ratio: 1.0
+  nos_position: encoder #should be either "encoder" or "decoder"
+  #nos_predict_strategy: fix #should be chosen from "fix", "uniform_random", "distributive_random", "threshold", "weight_embedding" 
+  #nos_predict_fix: 1 #if nos_predict_strategy is "fix", specify nos_predict_fix
 
   encoder_params:
     input_size: 256 # NOTE: should be twice of the embedding_dim if use hit input
@@ -53,7 +56,7 @@ training_params:
   evaluate_prediction: True
   save_model_each_epoch: True
   n_epochs: 15
-  batch_size: 32
+  batch_size: 128
   optimizer: Adam
   #warmup_step: 1000
   #factor: 2
