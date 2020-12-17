@@ -40,8 +40,32 @@ class E2EMLPTrainer(BaseTrainer):
         batch_y_var = datum[1]
         vocab_size = logits.size()[-1]
         logits = logits.contiguous().view(-1, vocab_size)
-        targets = batch_y_var.contiguous().view(-1, 1).squeeze(1)
-        loss = self.criterion(logits, targets)
+        if nos_option == 2:
+            nos_list = []
+            nos_num = (batch_y_var.transpose(0, 1) == 41).sum(dim = -1)
+        
+            for x in nos_num:
+               if x == 1 or x == 0:
+                  nos_list.append(3251)
+               if x == 2:
+                  nos_list.append(3252)
+               if x == 3:
+                  nos_list.append(3253)
+               if x == 4:
+                  nos_list.append(3254)
+               if x == 5:
+                  nos_list.append(3255)
+               if x == 6:
+                  nos_list.append(3256)
+            nos = cuda_if_gpu(Variable(torch.LongTensor(nos_list)))
+            y_nos = torch.cat([nos.unsqueeze(1), batch_y_var.transpose(0,1)], dim=-1).transpose(0,1)
+            targets = y_nos.contiguous().view(-1,1).squeeze(1)
+ 
+            loss = self.criterion(logits, targets).contiguous().view(-1, 1).squeeze(1)
+        else:
+            targets = batch_y_var.contiguous().view(-1,1).squeeze(1)
+            loss = self.criterion(logits,targets)  
+           
         return loss
 
     def plot_lcurve(self):

@@ -40,7 +40,8 @@ class BaseEvaluator(object):
 
         decoded_ids = []
         decoded_attn_weights = []
-
+        nos_option = self.config["nos_option"]
+        print(nos_option)
         # Make a prediction on the first input
         curr_x_ids = dev_data[0]
         curr_tgt_ids = dev_data_tgt[0]
@@ -56,6 +57,8 @@ class BaseEvaluator(object):
 
         # Make predictions on the remaining unique (!) inputs
         for snt_ids in dev_data[1:]:
+        if nos_option == 1:
+            curr_tgt_ids = dev_data_tgt[0]
             nos=0
             curr_tgt_ids = dev_data_tgt[cnt]
             for j in range(len(curr_tgt_ids)):
@@ -70,6 +73,48 @@ class BaseEvaluator(object):
                 decoded_attn_weights.append(attn_weights)
                 curr_x_ids = snt_ids
             cnt += 1
+                    out_ids, attn_weights = self.predict_one_dev(model, snt_ids,nos)
+                    decoded_ids.append(out_ids)
+                    decoded_attn_weights.append(attn_weights)
+                    curr_x_ids = snt_ids
+                cnt += 1
+
+        elif nos_option == 2:
+
+            # Make a prediction on the first input
+            curr_x_ids = dev_data[0]
+            out_ids, attn_weights = self.predict_one(model, curr_x_ids)
+            decoded_ids.append(out_ids[1:])
+            decoded_attn_weights.append(attn_weights)
+            #pdb.set_trace()
+            # Make predictions on the remaining unique (!) inputs
+            for snt_ids in dev_data[1:]:
+
+                if snt_ids == curr_x_ids:
+                    continue
+                else:
+                    out_ids, attn_weights = self.predict_one(model, snt_ids)
+                    decoded_ids.append(out_ids[1:])
+                    decoded_attn_weights.append(attn_weights)
+                    curr_x_ids = snt_ids
+        else:
+            # Make a prediction on the first input
+            curr_x_ids = dev_data[0]
+            out_ids, attn_weights = self.predict_one(model, curr_x_ids)
+            decoded_ids.append(out_ids)
+            decoded_attn_weights.append(attn_weights)
+            #pdb.set_trace()
+            # Make predictions on the remaining unique (!) inputs
+            for snt_ids in dev_data[1:]:
+
+                if snt_ids == curr_x_ids:
+                    continue
+                else:
+                    out_ids, attn_weights = self.predict_one(model, snt_ids)
+                    decoded_ids.append(out_ids)
+                    decoded_attn_weights.append(attn_weights)
+                    curr_x_ids = snt_ids
+        
         return decoded_ids, decoded_attn_weights
 
     def evaluate_model_test(self, model, test_data):
@@ -79,13 +124,15 @@ class BaseEvaluator(object):
         :param dev_data:
         :return:
         """
-
+        nos_option = self.config["model_params"]["nos_option"]
         decoded_ids = []
         decoded_attn_weights = []
-
         for snt_ids in test_data:
             out_ids, attn_weights = self.predict_one(model, snt_ids)
-            decoded_ids.append(out_ids)
+            if nos_option == 2:
+                decoded_ids.append(out_ids[1:])
+            else:
+                decoded_ids.append(out_ids)
             decoded_attn_weights.append(attn_weights)
 
         return decoded_ids, decoded_attn_weights

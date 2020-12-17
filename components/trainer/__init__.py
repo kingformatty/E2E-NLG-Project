@@ -63,9 +63,9 @@ class BaseTrainer(object):
         self.cider_scores.append(cider)
         self.rouge_scores.append(rouge)
         self.meteor_scores.append(meteor)
-
-        score_msg = 'BLEU=%0.5f NIST=%0.5f CIDEr=%0.5f ROUGE=%0.5f METEOR=%0.5f' \
-                    % (bleu, nist, cider, rouge, meteor)
+        avg = (bleu + nist + cider + rouge + meteor) / 5
+        score_msg = 'BLEU=%0.5f NIST=%0.5f CIDEr=%0.5f ROUGE=%0.5f METEOR=%0.5f AVERAGE = %0.5f' \
+                    % (bleu, nist, cider, rouge, meteor, avg)
 
         logger.info(score_msg)
 

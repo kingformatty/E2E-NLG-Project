@@ -21,6 +21,7 @@ class E2ETransformer(E2ESeq2SeqModel):
         self.nos_position=self.config["nos_position"]
         self.nos_predict_strategy = self.config["nos_predict_strategy"]
         self.nos_predict_fix = self.config["nos_predict_fix"]
+        self.nos_option = self.config["nos_option"]        
 
     def set_decoder(self):
         decoder_rnn_params = self.config["decoder_params"]
@@ -34,30 +35,61 @@ class E2ETransformer(E2ESeq2SeqModel):
         """
 
         batch_x_var, batch_y_var = datum
+        if self.nos_option == 1:
+            #pdb.set_trace()
+            batch_y_var = batch_y_var.transpose(0, 1)
+            batch_size = batch_y_var.size(0)
+            bos_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
+            decoder_input = torch.cat([bos_input.unsqueeze(1), batch_y_var[:,:-1]], dim=-1)
+            decoder_input_embedded = self.embedding_mat(decoder_input)
+            #pdb.set_trace()
+            decoder_input_nos=cuda_if_gpu(Variable(torch.LongTensor(np.zeros((decoder_input.size(0),1)))))
+            for i in range(decoder_input.size(0)):
+                for j in range(decoder_input.size(1)):
+                    if decoder_input[i,j]==41:  #if there is a ".". sentence count+1
+                        decoder_input_nos[i]+=1
+            #pdb.set_trace()
+            
+            encoder_input_embedded = self.embedding(batch_x_var)
+            encoder_input_embedded = self.embedding_dropout_layer(encoder_input_embedded).transpose(0,1)
+            if self.nos_position == "encoder":
+                #encoder nos embedding
+                encoder_input_embedded_nos = self.embedding_mat_nos(decoder_input_nos)
+                encoder_input_embedded=encoder_input_embedded+encoder_input_embedded_nos
+                #encoder nos embedding end
+        
+            encoder_outputs = self.encoder(encoder_input_embedded, None)
+        # PAG
+        elif self.nos_option == 2:
+            nos_list = [] 
+            encoder_input_embedded = self.embedding(batch_x_var)
+            encoder_input_embedded = self.embedding_dropout_layer(encoder_input_embedded).transpose(0,1)
+            encoder_outputs = self.encoder(encoder_input_embedded, None)
 
-        #pdb.set_trace()
-        batch_y_var = batch_y_var.transpose(0, 1)
-        batch_size = batch_y_var.size(0)
-        bos_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
-        decoder_input = torch.cat([bos_input.unsqueeze(1), batch_y_var[:,:-1]], dim=-1)
-        decoder_input_embedded = self.embedding_mat(decoder_input)
-        #pdb.set_trace()
-        decoder_input_nos=cuda_if_gpu(Variable(torch.LongTensor(np.zeros((decoder_input.size(0),1)))))
-        for i in range(decoder_input.size(0)):
-            for j in range(decoder_input.size(1)):
-                if decoder_input[i,j]==41:  #if there is a ".". sentence count+1
-                    decoder_input_nos[i]+=1
-        #pdb.set_trace()
-        
-        encoder_input_embedded = self.embedding(batch_x_var)
-        encoder_input_embedded = self.embedding_dropout_layer(encoder_input_embedded).transpose(0,1)
-        if self.nos_position == "encoder":
-            #encoder nos embedding
-            encoder_input_embedded_nos = self.embedding_mat_nos(decoder_input_nos)
-            encoder_input_embedded=encoder_input_embedded+encoder_input_embedded_nos
-            #encoder nos embedding end
-        
-        encoder_outputs = self.encoder(encoder_input_embedded, None)
+            batch_y_var = batch_y_var.transpose(0, 1)
+            batch_size = batch_y_var.size(0)
+            bos_input = cuda_if_gpu(Variable(torch.LongTensor([BOS_ID] * batch_size)))
+
+            #pdb.set_trace()
+            nos_num = (batch_y_var == 41).sum(dim=-1)
+            for x in nos_num:
+               if x == 1 or x == 0:
+                  nos_list.append(3251)
+               if x == 2:
+                  nos_list.append(3252)
+               if x == 3:
+                  nos_list.append(3253)
+               if x == 4:
+                  nos_list.append(3254)
+               if x == 5:
+                  nos_list.append(3255)
+               if x == 6:
+                  nos_list.append(3256)
+
+            nos_input = cuda_if_gpu(Variable(torch.LongTensor(nos_list)))
+            #pdb.set_trace()
+            decoder_input = torch.cat([bos_input.unsqueeze(1), nos_input.unsqueeze(1), batch_y_var[:,:-1]], dim=-1)
+            encoder_input_embedded = self.embedding_mat(decoder_input)
         
         if self.nos_position == "decoder":
             #decoder nos embedding

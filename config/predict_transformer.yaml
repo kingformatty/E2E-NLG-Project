@@ -7,8 +7,7 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: /media/kingformatty/king/E2E-NLG-Project/exp_transformer/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs128-lr0.0002_2020-Nov-29_18.09.03_with_decoder_embedding_nos_filtered/weights.epoch15
-
+model_fn: /home/yuzheng/E2E-NLG-Project/exp_transformer/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs32-lr0.0002_2020-Dec-16_18:28:41/weights.epoch3
 # Model module names
 data-module: components.data.e2e_data_MLP
 model-module: components.model.e2e_model_transformer
@@ -20,7 +19,7 @@ data_params:
   train_data: 
   dev_data: 
   test_data: e2e-dataset/testset.csv # specify the file to make preictions on
-  vocab_path: e2e-dataset/UKP_vocab.txt
+  vocab_path: e2e-dataset/UKP_vocab_PAG.txt  # should be changed to UKP_vocab_PAG.txt for PAG method
 
   max_src_len: 50
   max_tgt_len: 100
@@ -31,6 +30,8 @@ model_params:
   embedding_dim: 256
   embedding_dropout: 0
   teacher_forcing_ratio: 1.0
+
+  nos_option: 2      # 0 for None/no nos, 1 for CNE, 2 for PAG
   nos_position: decoder #should be either "encoder" or "decoder" and should be the same as train_transformer.yaml
   nos_predict_strategy: fix #should be chosen from "fix", "uniform_random", "distributive_random", "threshold", "weight_embedding" 
   nos_predict_fix: 2 #if nos_predict_strategy is "fix", specify nos_predict_fix
@@ -58,4 +59,6 @@ training_params:
   n_epochs: 15
   batch_size: 32
   optimizer: Adam
+  nos_option: 2
   learning_rate: 0.0002
+

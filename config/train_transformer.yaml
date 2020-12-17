@@ -20,7 +20,7 @@ data_params:
   train_data: ./e2e-dataset/trainset_normalize_0.csv
   dev_data: ./e2e-dataset/devset.csv
   test_data:
-  vocab_path: ./e2e-dataset/UKP_vocab.txt    # should be changed for different input 
+  vocab_path: ./e2e-dataset/UKP_vocab_PAG.txt    # should be changed to UKP_vocab_PAG.txt for the PAG method 
 
   max_src_len: 50
   max_tgt_len: 60

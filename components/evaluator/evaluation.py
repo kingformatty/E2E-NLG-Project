@@ -2,7 +2,6 @@ import subprocess
 import re
 import os, sys
 
-
 def eval_output(ref_fn, pred_fn):
     """
     Runs an external evaluation script (COCO/MTeval evaluation, measure_scores.py) and retrieves the scores
@@ -21,6 +20,7 @@ def eval_output(ref_fn, pred_fn):
     eval_out = _sh_eval(pred_fn, ref_fn)
     eval_out = eval_out.decode("utf-8")
     scores = re.search(pat, eval_out).group(1, 2, 3, 4, 5)
+
     # scores should be: bleu, nist, meteor, rouge, cider
     return [float(x) for x in scores]
 

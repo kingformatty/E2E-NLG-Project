@@ -161,6 +161,14 @@ class VocabularyShared(VocabularyBase):
         vocablist = constants.START_VOCAB
         vocablist.extend(self.process_raw_data(raw_data_src))
         vocablist.extend(self.process_raw_data(raw_data_tgt))
+        #if nos_option == 2:
+        #    vocablist += ['<1>',
+        #                  '<2>',
+        #                  '<3>',
+        #                  '<4>',
+        #                  '<5>',
+        #                  '<6>',
+        #                  ]
 
         # saving the vocabulary
         with open(vocab_path, 'w') as vocab_file:
