@@ -100,7 +100,7 @@ class BaseTrainer(object):
         dev_multi_ref_fn = '%s.multi-ref' % data.fnames['dev']
 
         self.set_optimizer(model, self.config['optimizer'])
-        self.set_train_criterion(len(id2word), PAD_ID)
+        self.set_train_criterion(len(id2word), PAD_ID, model.nos_option)
 
         # Moving the model to GPU, if available
         if self.use_cuda:

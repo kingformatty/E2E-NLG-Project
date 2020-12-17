@@ -25,6 +25,9 @@ class VocabularyBase(object):
                 for line in f:
                     vocablist.append(line.strip())
 
+            vocablist += ['<1>', '<2>', '<3>', 
+                          '<4>', '<5>', '<6>']
+
             for idx, tok in enumerate(vocablist):
                 self.id2tok[idx] = tok
                 self.tok2id[tok] = idx
@@ -161,19 +164,14 @@ class VocabularyShared(VocabularyBase):
         vocablist = constants.START_VOCAB
         vocablist.extend(self.process_raw_data(raw_data_src))
         vocablist.extend(self.process_raw_data(raw_data_tgt))
-        #if nos_option == 2:
-        #    vocablist += ['<1>',
-        #                  '<2>',
-        #                  '<3>',
-        #                  '<4>',
-        #                  '<5>',
-        #                  '<6>',
-        #                  ]
 
         # saving the vocabulary
         with open(vocab_path, 'w') as vocab_file:
             for w in vocablist:
                 vocab_file.write('%s\n' % w)
+        
+        vocablist += ['<1>', '<2>', '<3>', 
+                      '<4>', '<5>', '<6>']
 
         for idx, tok in enumerate(vocablist):
             self.id2tok[idx] = tok

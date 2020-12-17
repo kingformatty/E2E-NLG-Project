@@ -18,16 +18,16 @@ class BaseEvaluator(object):
         tokens = [id2word[t] for t in ids]
         return tokens, ' '.join(tokens)
 
-    def predict_one(self, model, src_snt_ids):
+    def predict_one(self, model, src_snt_ids, top_k):
         addEOS = not model.hit_input
         input_var = ids2var(src_snt_ids, -1, 1, addEOS=addEOS)  # batch_size = 1; cudified
-        output_ids, attention_weights = model.predict(input_var)
+        output_ids, attention_weights = model.predict(input_var, top_k)
         return output_ids, attention_weights
 
-    def predict_one_dev(self, model,src_snt_ids,nos):
+    def predict_one_dev(self, model, src_snt_ids, nos):
         addEOS = not model.hit_input
         input_var = ids2var(src_snt_ids, -1, 1, addEOS=addEOS)
-        output_ids, attention_weights = model.predict_dev(input_var,nos)
+        output_ids, attention_weights = model.predict_dev(input_var, nos)
         return output_ids, attention_weights
         
     def evaluate_model(self, model, dev_data, dev_data_tgt):
@@ -40,78 +40,58 @@ class BaseEvaluator(object):
 
         decoded_ids = []
         decoded_attn_weights = []
-        nos_option = self.config["nos_option"]
-        print(nos_option)
+        nos_option = model.nos_option
         # Make a prediction on the first input
-        curr_x_ids = dev_data[0]
-        curr_tgt_ids = dev_data_tgt[0]
-        nos=0
-        cnt=1
-        for i in range(len(curr_tgt_ids)):
-            if curr_tgt_ids[i]==41:
-                nos+=1
-        out_ids, attn_weights = self.predict_one_dev(model, curr_x_ids, nos)
-        #pdb.set_trace()
-        decoded_ids.append(out_ids)
-        decoded_attn_weights.append(attn_weights)
-
-        # Make predictions on the remaining unique (!) inputs
-        for snt_ids in dev_data[1:]:
         if nos_option == 1:
+            curr_x_ids = dev_data[0]
             curr_tgt_ids = dev_data_tgt[0]
-            nos=0
-            curr_tgt_ids = dev_data_tgt[cnt]
-            for j in range(len(curr_tgt_ids)):
-                if curr_tgt_ids[j]==41:
+            nos=0        
+            for i in range(len(curr_tgt_ids)):
+                if curr_tgt_ids[i]==41:
                     nos+=1
-            if snt_ids == curr_x_ids:
-                continue
-            else:
-                
-                out_ids, attn_weights = self.predict_one_dev(model, snt_ids,nos)
-                decoded_ids.append(out_ids)
-                decoded_attn_weights.append(attn_weights)
-                curr_x_ids = snt_ids
-            cnt += 1
-                    out_ids, attn_weights = self.predict_one_dev(model, snt_ids,nos)
+
+            out_ids, attn_weights = self.predict_one_dev(model, curr_x_ids, nos)
+            decoded_ids.append(out_ids)
+            decoded_attn_weights.append(attn_weights)
+
+            # Make predictions on the remaining unique (!) inputs
+            cnt=1
+            for snt_ids in dev_data[1:]:
+                curr_tgt_ids = dev_data_tgt[cnt]
+                nos=0
+                for j in range(len(curr_tgt_ids)):
+                    if curr_tgt_ids[j]==41:
+                        nos+=1
+
+                if snt_ids == curr_x_ids:
+                    continue
+                else:
+                    out_ids, attn_weights = self.predict_one_dev(model, snt_ids, nos)
                     decoded_ids.append(out_ids)
                     decoded_attn_weights.append(attn_weights)
                     curr_x_ids = snt_ids
                 cnt += 1
 
-        elif nos_option == 2:
-
-            # Make a prediction on the first input
-            curr_x_ids = dev_data[0]
-            out_ids, attn_weights = self.predict_one(model, curr_x_ids)
-            decoded_ids.append(out_ids[1:])
-            decoded_attn_weights.append(attn_weights)
-            #pdb.set_trace()
-            # Make predictions on the remaining unique (!) inputs
-            for snt_ids in dev_data[1:]:
-
-                if snt_ids == curr_x_ids:
-                    continue
-                else:
-                    out_ids, attn_weights = self.predict_one(model, snt_ids)
-                    decoded_ids.append(out_ids[1:])
-                    decoded_attn_weights.append(attn_weights)
-                    curr_x_ids = snt_ids
         else:
             # Make a prediction on the first input
             curr_x_ids = dev_data[0]
-            out_ids, attn_weights = self.predict_one(model, curr_x_ids)
-            decoded_ids.append(out_ids)
+            out_ids, attn_weights = self.predict_one(model, curr_x_ids, 1)
+            if nos_option == 2:
+                decoded_ids.append(out_ids[1:])
+            else:
+                decoded_ids.append(out_ids)
             decoded_attn_weights.append(attn_weights)
-            #pdb.set_trace()
             # Make predictions on the remaining unique (!) inputs
             for snt_ids in dev_data[1:]:
 
                 if snt_ids == curr_x_ids:
                     continue
                 else:
-                    out_ids, attn_weights = self.predict_one(model, snt_ids)
-                    decoded_ids.append(out_ids)
+                    out_ids, attn_weights = self.predict_one(model, snt_ids, 1)
+                    if nos_option == 2:
+                        decoded_ids.append(out_ids[1:])
+                    else:
+                        decoded_ids.append(out_ids)
                     decoded_attn_weights.append(attn_weights)
                     curr_x_ids = snt_ids
         
@@ -125,10 +105,11 @@ class BaseEvaluator(object):
         :return:
         """
         nos_option = self.config["model_params"]["nos_option"]
+        top_k = self.config["model_params"]["top_k"]
         decoded_ids = []
         decoded_attn_weights = []
         for snt_ids in test_data:
-            out_ids, attn_weights = self.predict_one(model, snt_ids)
+            out_ids, attn_weights = self.predict_one(model, snt_ids, top_k)
             if nos_option == 2:
                 decoded_ids.append(out_ids[1:])
             else:
