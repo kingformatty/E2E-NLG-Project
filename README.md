@@ -62,6 +62,7 @@ The repository contains code for an MLP-based encoder-decoder model and a templa
 
 * `run_experiment.py`: main script to run
 * `config_e2e_MLP_train.yaml` and `config_e2e_MLP_predict.yaml`: configuration files to use with the script above
+* For your convenience, we have setup multiple configuration files in `config/`. 
 * `components/`: NN components and the template model
 * `predictions/`:
     * `e2e_model_MLP_seedXXX`: 20 folders with predictions and scores from the NN model (one per different random seed)
