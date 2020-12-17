@@ -98,7 +98,7 @@ class E2ETransformer(E2ESeq2SeqModel):
         #pdb.set_trace()
         tgt_mask = (decoder_input != PAD_ID).unsqueeze(1)
         tgt_mask = tgt_mask & self.subsequent_mask(decoder_input.size(-1)).type_as(tgt_mask)
-        pdb.set_trace()
+        #pdb.set_trace()
         logits = self.decoder(decoder_input_embedded, encoder_outputs, None, tgt_mask)
         #pdb.set_trace()
         return logits.transpose(0,1)
@@ -290,7 +290,7 @@ class E2ETransformer(E2ESeq2SeqModel):
 
             prev_y = self.embedding_mat(dec_input_var)
             #pdb.set_trace()
-            if nos_position == "decoder":
+            if self.nos_position == "decoder":
                 #decoder_embedding
                 nos_embedding = self.embedding_mat_nos(nos)
                 prev_y=prev_y+nos_embedding
