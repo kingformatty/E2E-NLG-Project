@@ -7,7 +7,7 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: exp/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs128-lr0.0002_2020-Dec-16_23:06:46/weights.epoch1
+model_fn: exp/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs128-lr0.0002_2020-Dec-17_23.53.25/weights.epoch1
 
 # Model module names
 data-module: components.data.e2e_data_MLP
@@ -32,10 +32,10 @@ model_params:
   embedding_dropout: 0
   teacher_forcing_ratio: 1.0
 
-  nos_option: 0      # 0 for None/no nos, 1 for CNE, 2 for PAG
-  nos_position: decoder #should be either "encoder" or "decoder" and should be the same as train_transformer.yaml
-  nos_predict_strategy: fix #should be chosen from "fix", "uniform_random", "distributive_random", "threshold", "weight_embedding" 
-  nos_predict_sent_num: 2 #if nos_predict_strategy is "fix", specify nos_predict_fix
+  nos_option: 0      # 0 for None/no nos, 1 for CNE, 2 for PAG (freeze)
+  nos_position:  #should be either "encoder" or "decoder" and should be the same as train_transformer.yaml
+  nos_predict_strategy:  #should be chosen from "fix", "uniform_random", "distributive_random", "threshold", "weight_embedding" 
+  nos_predict_sent_num:  #if nos_predict_strategy is "fix", specify nos_predict_fix
 
   encoder_params:
     input_size: 256 # NOTE: should be equal to embedding_dim
