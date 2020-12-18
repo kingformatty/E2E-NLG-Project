@@ -53,7 +53,7 @@ model_params:
     n_head: 4
     d_ff: 512
 
-  top_k: 3  # for beam search
+  top_k: 1  # for beam search
 
 training_params:
   evaluate_prediction: True
