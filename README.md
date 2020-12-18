@@ -58,7 +58,7 @@ For your convenience, we have setup multiple configuration files in `config/`.
 7. `train_gru.YAML` and `predict_gru.YAML` run experiments using standard gru model.
 8. `train_tfenc.YAML` and `predict_tf.YAML` run experiments using transformer as encoder model.
 9. `data_module` can be chosen from `e2e_data_hav`, `e2e_data_hit`, and `e2e_data_MLP`, do not forget to modify corresponding parameters in configuration files following the instruction within them.
-10. Constraint: First, different input types can only be changed for GRU model. Second, NOS related terms are specifically designed for Transformer model. 
+10. Constraint: NOS related terms are specifically designed for Transformer model. 
 11. For other model configuration parameters including `embedding size`, `hidden size`, `input size`, etc., if your setting confirms the instruction within the configuration file, the script can execute correctly.
 
 * Step2 
