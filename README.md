@@ -1,5 +1,4 @@
-# CS269 NLG Course Project:
-# Sentence Controllable DA-based E2E Generation in Restaurant Domain
+# CS269 NLG Course Project: Sentence Controllable DA-based E2E Generation in Restaurant Domain
 
 # Notice
 
