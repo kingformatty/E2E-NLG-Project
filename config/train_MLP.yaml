@@ -1,0 +1,61 @@
+experiments_dir: ./exp3
+log_level: INFO
+random_seed: 1
+
+# choose from: predict, train
+mode: train
+
+# If mode is 'predict', specify the model name,
+# e.g. /path/to/model/weights.epoch5
+model_fn:
+
+# Model module names
+data-module: components.data.e2e_data_MLP
+model-module: components.model.e2e_model_MLP
+training-module: components.trainer.e2e_trainer_MLP
+evaluation-module: components.evaluator.e2e_evaluator
+
+data_params:
+
+  train_data: ./e2e-dataset/trainset.csv
+  dev_data: ./e2e-dataset/devset.csv
+  test_data:
+  vocab_path: ./e2e-dataset/UKP_vocab.txt    # should be changed for different input 
+
+  max_src_len: 50
+  max_tgt_len: 60
+
+model_params:
+  hit_input: False   #True if use HIT input
+
+  embedding_dim: 256
+  embedding_dropout: 0
+  teacher_forcing_ratio: 1.0
+  nos_option: 0                    # 0 for no NOS, 1 for CNE and 2 for PAG (freeze)
+  nos_position:             # should be either "encoder" or "decoder"
+  nos_predict_strategy:         # defined for decoding
+  nos_predict_sent_num:           # defined for decoding
+  
+  
+  encoder_params:
+    input_size: 256 # NOTE: should be twice of the embedding_dim if use hit input
+    hidden_size: 768
+    num_layers: 2
+    dropout: 0
+    n_head: 4
+    d_ff: 512
+    #bidirectional: True
+
+  decoder_params:
+    input_size: 512
+    hidden_size: 512
+    num_layers: 1
+    dropout: 0
+
+training_params:
+  evaluate_prediction: True
+  save_model_each_epoch: True
+  n_epochs: 15
+  batch_size: 32
+  optimizer: Adam
+  learning_rate: 0.0002

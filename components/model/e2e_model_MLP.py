@@ -16,7 +16,11 @@ class E2EMLPModel(E2ESeq2SeqModel):
         self.hit_input = self.config["hit_input"]
         encoder_params = self.config["encoder_params"]
         self.encoder = EncoderMLP(encoder_params)
-
+        self.nos_position=self.config["nos_position"]
+        self.nos_predict_strategy = self.config["nos_predict_strategy"]
+        self.nos_predict_sent_num = self.config["nos_predict_sent_num"]
+        self.nos_option = self.config["nos_option"]  
+        
     def set_decoder(self):
         decoder_rnn_params = self.config["decoder_params"]
         self.decoder = DecoderRNNAttnBahd(rnn_config=decoder_rnn_params,
@@ -134,7 +138,7 @@ class E2EMLPModel(E2ESeq2SeqModel):
 
         return predicted_logits
 
-    def predict(self, input_var):
+    def predict(self, input_var, K):
 
         # Embedding lookup
         encoder_input_embedded = self.embedding(input_var)
