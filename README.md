@@ -54,6 +54,8 @@ For your convenience, we have setup multiple configuration files in `config/`.
 3. `train_transformer_CNE_Dec.YAML` and `predict_transformer_CNE_Dec.YAML` run experiments using Transformer model with CNE NOS embedding in decoder input. Please freeze `nos_option` and `nos_position` to maintain the CNE_Dec structure.
 4. `train_transformer_PAG.YAML` and `predict_transformer_PAG.YAML` run experiments using Transformer model with PAG NOS. Please freeze `nos_option` to maintain the PAG structure. (`nos_position` is not used in this method).
 5. `train_XXXX.YAML` and `predict_XXXX.YAML` files are required to be used in pairs.
+6. `data-module` determines the input preprocessing strategy, this term can be chosen from `e2e_data_MLP`, `e2e_data_hav`, and `e2e_data_hit`. If `e2e_data_hit` is used, please specify `hit_input` to be true, and don't forget to set the `encoder_params`'s `input_size` to be twice of embedding_dim. Also, please specify a new `vocab_path` for each different input type.
+7. `model-module` determines the model structure, this term can be chosen from `e2e_model_transformer`, `e2e_model_MLP`, `e2e_model_gru`, and `e2e_model_tfenc`. 
 
 * Step2 
 
