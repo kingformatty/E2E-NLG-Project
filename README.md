@@ -64,15 +64,15 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
 
 ### Training models
 
-    1. Adjust data paths and choose a configuration file or use your own defined YAML (*train_transformer.yaml*, as a running example).
+1. Adjust data paths and choose a configuration file or use your own defined YAML (*train_transformer.yaml*, as a running example).
     
-    2. Run the following command:  
+2. Run the following command:  
         
     ```
     $ python run_experiment.py config/train_transformer.yaml
     ```
     
-    3. After the experiment, a folder will be created in the directory specified 
+3. After the experiment, a folder will be created in the directory specified 
     by the *experiments_dir* field of *train_transformer.yaml* file.
     This folder should contain the following files:
         - experiment log (*log.txt*)
@@ -82,7 +82,7 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
         - configuration dictionary in json format (*config.json*)
 	    - pdf files with learning curves (optional)
     
-    4. If you use a model for prediction (setting "predict" as the value for the *mode* field in the config file and 
+4. If you use a model for prediction (setting "predict" as the value for the *mode* field in the config file and 
     specifying model path in *model_fn*), use corresponding predict_transformer.yaml 
     or set the configuration parameters to be the same as your training configuration if you want to use the self-defined configuration.
     the predictions done by the loaded model will be
@@ -93,12 +93,14 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
 ### Evaluation
 
 Evaluate the generated context using the code below.
+
     ```
     $ cd e2e-metrics
     $ python measure_scores.py <ref> <generated>
     $ #Eg.
     $ python measure_scores.py e2e-dataset/testset_w_refs.csv.multi-ref exp/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs128-lr0.0002_2020-Dec-17_23.53.25/weights.epoch1.testset.predictions.txt.
     ```
+    
 This script will calculate BLEU, NIST, CIDEr, ROUGE-L, and METEOR. 
 
 [1]: https://www.gnu.org/software/gettext/manual/gettext.html#sh_002dformat
