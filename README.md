@@ -19,7 +19,7 @@ Transformer encoder is updated.
 We provide basic scripts and their utilities in this repository, along with some output files' content:
 
 * `run_experiment.py`: main script to run (please freeze this script since experiment configurations are declared in YAML file).
-* `train_XXXX.yaml` and `predict_XXXX.yaml`: configuration files to use with the script above.
+* `config/train_XXXX.yaml` and `config/predict_XXXX.yaml`: configuration files to use with the script above.
 * `components/`: data_preprocessing (HAV, HIT, UKP), model (MLP, GRU, Transformer...), trainer, evaluator, and necessary utils. 
 
 ## Requirements
