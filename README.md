@@ -40,7 +40,7 @@ $ conda install progressbar2
 ```
 
 * Python2 dependencies are needed only to run the official evaluation scripts.
-See installation instructions [here][3].
+
 
 ## Running the experiments
 
@@ -57,27 +57,23 @@ For your convenience, we have setup multiple configuration files in `config/`.
 
 * Step2 
 
-Modify `PYTHON2` and `E2E_METRCIS_FOLDER` variables in the following file:
+Please first download e2e-metrics toolkit from [3]. We are going to use the measure_score.py script to evaluate the quality of the generated sentence.
+    
 
-`components/evaluator/eval_scripts/run_eval.sh`
 
-This shell script is calling the [external evaluation tools][3].
-`PYTHON2` denotes a specific python environment with all the necessary dependencies installed.
-`E2E_METRICS_FOLDER` denotes the cloned repository with the aforementioned tools.
 
 ### Training models
 
-* **Model-D**:
-    1. Adjust data paths and hyper-parameter values in the config file (*my_config.yaml*, as a running example).
+    1. Adjust data paths and choose a configuration file or use your own defined YAML (*train_transformer.yaml*, as a running example).
     
     2. Run the following command:  
         
     ```
-    $ python run_experiment.py my_config.yaml
+    $ python run_experiment.py config/train_transformer.yaml
     ```
     
     3. After the experiment, a folder will be created in the directory specified 
-    by the *experiments_dir* field of *my_config.yaml* file.
+    by the *experiments_dir* field of *train_transformer.yaml* file.
     This folder should contain the following files:
         - experiment log (*log.txt*)
         - model weights and development set predictions for each training epoch 
@@ -86,16 +82,24 @@ This shell script is calling the [external evaluation tools][3].
         - configuration dictionary in json format (*config.json*)
 	    - pdf files with learning curves (optional)
     
-    4. If you use a model for prediction 
-    (by setting "predict" as the value for the *mode* field in the config file and 
-    specifying model path in *model_fn*), the predictions done by the loaded model will be
+    4. If you use a model for prediction (setting "predict" as the value for the *mode* field in the config file and 
+    specifying model path in *model_fn*), use corresponding predict_transformer.yaml 
+    or set the configuration parameters to be the same as your training configuration if you want to use the self-defined configuration.
+    the predictions done by the loaded model will be
     stored in:
         - $model_fn.devset.predictions.txt
         - $model_fn.testset.predictions.txt
    
+### Evaluation
 
-
-
+Evaluate the generated context using the code below.
+    ```
+    $ cd e2e-metrics
+    $ python measure_scores.py <ref> <generated>
+    $ #Eg.
+    $ python measure_scores.py e2e-dataset/testset_w_refs.csv.multi-ref exp/e2e_model_transformer_seed1-emb256-hid512-drop0.05-bs128-lr0.0002_2020-Dec-17_23.53.25/weights.epoch1.testset.predictions.txt.
+    ```
+This script will calculate BLEU, NIST, CIDEr, ROUGE-L, and METEOR. 
 
 [1]: https://www.gnu.org/software/gettext/manual/gettext.html#sh_002dformat
 [2]: http://www.macs.hw.ac.uk/InteractionLab/E2E/data/baseline-output.txt
