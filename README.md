@@ -3,9 +3,7 @@
 The code of our course project is modified based on
 [https://github.com/UKPLab/e2e-nlg-challenge-2017](https://github.com/UKPLab/e2e-nlg-challenge-2017)
 
-1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68)
-
-and we have already fixed it.
+1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68) We have already fixed it in this project.
 
 2. Transformer model is added.
 
