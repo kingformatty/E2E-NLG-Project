@@ -43,7 +43,8 @@ class E2EMLPTrainer(BaseTrainer):
         
         if nos_option == 2:
             nos_num = (batch_y_var == 41).sum(dim = 0)
-            targets = torch.cat([nos_num.unsqueeze(0), batch_y_var], dim=0).contiguous().view(-1,1).squeeze(1)
+            nos_input = nos_num + vocab_size - 7
+            targets = torch.cat([nos_input.unsqueeze(0), batch_y_var], dim=0).contiguous().view(-1,1).squeeze(1)
             loss = self.criterion(logits, targets)
         else:
             targets = batch_y_var.contiguous().view(-1,1).squeeze(1)

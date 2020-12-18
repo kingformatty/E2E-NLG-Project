@@ -70,7 +70,7 @@ class E2ETransformer(E2ESeq2SeqModel):
             nos_num = (batch_y_var == 41).sum(dim=-1)
             nos_input = nos_num + self.tgt_vocab_size - 7
             
-            decoder_input = torch.cat([bos_input.unsqueeze(1), nos_num.unsqueeze(1), batch_y_var[:,:-1]], dim=-1)
+            decoder_input = torch.cat([bos_input.unsqueeze(1), nos_input.unsqueeze(1), batch_y_var[:,:-1]], dim=-1)
             decoder_input_embedded = self.embedding_mat(decoder_input)
         # No nos
         else:
