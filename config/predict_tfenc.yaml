@@ -7,7 +7,7 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: /media/kingformatty/easystore/project/E2E-NLG-Project/exp3/e2e_model_tfenc_seed1-emb256-hid768-drop0-bs32-lr0.0002_2020-Dec-18_13.44.36/weights.epoch1
+model_fn: /media/kingformatty/easystore/E2E-NLG-Project/exp3/tfenc/weights.epoch1
 
 # Model module names
 data-module: components.data.e2e_data_MLP
@@ -38,7 +38,7 @@ model_params:
   
   
   encoder_params:
-    input_size: 256 # NOTE: should be twice of the embedding_dim if use hit input
+    input_size: 256
     hidden_size: 768
     num_layers: 2
     dropout: 0

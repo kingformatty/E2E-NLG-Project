@@ -7,7 +7,7 @@ mode: predict
 
 # If mode is 'predict', specify the model name,
 # e.g. /path/to/model/weights.epoch5
-model_fn: /media/kingformatty/easystore/project/E2E-NLG-Project/exp3/e2e_model_gru_seed1-emb256-hid768-drop0-bs32-lr0.0002_2020-Dec-18_13.36.25/weights.epoch1
+model_fn: /media/kingformatty/easystore/E2E-NLG-Project/exp3/GRU_HAV/weights.epoch1
 
 # Model module names
 data-module: components.data.e2e_data_MLP
@@ -20,7 +20,7 @@ data_params:
   train_data: 
   dev_data: 
   test_data: e2e-dataset/testset.csv # specify the file to make preictions on
-  vocab_path: e2e-dataset/UKP_vocab.txt
+  vocab_path: e2e-dataset/UKP_vocab_.txt
 
   max_src_len: 50
   max_tgt_len: 100
@@ -38,7 +38,7 @@ model_params:
   
   
   encoder_params:
-    input_size: 256 # NOTE: should be twice of the embedding_dim if use hit input
+    input_size: 256
     hidden_size: 768
     num_layers: 2
     dropout: 0
