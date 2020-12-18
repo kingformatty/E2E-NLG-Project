@@ -9,52 +9,11 @@ We have already fixed it for our course project.
 
 Transformer encoder is updated.
 
-
-# E2E NLG Challenge submission 
-
-Please use the following citation:
-
-```
-@misc{puzikov2018_e2e-nlg-challenge,
- author = {Puzikov, Yevgeniy and Gurevych, Iryna},
- title = {{E2E} {NLG} Challenge: Neural Networks Vs. Templates},
- howpublished = {{E2E} {NLG} Challenge System Descriptions},
- year = 2018,
- note = {\url{http://www.macs.hw.ac.uk/InteractionLab/E2E/#papers}},
-}
-```
-
-> **Abstract:**  
-  E2E NLG Challenge is a shared task on generating restaurant
-  descriptions from sets of key-value pairs.
-  This paper describes the results of our participation in the challenge. 
-  We develop a simple, yet effective neural encoder-decoder model
-  which produces fluent restaurant descriptions
-  and outperforms a strong baseline.
-  We further analyze the data provided by the organizers and conclude
-  that the task can also be approached with a template-based model
-  developed in just a few hours.
-
-Contact person: Yevgeniy Puzikov, puzikov@ukp.informatik.tu-darmstadt.de
-
-https://www.ukp.tu-darmstadt.de/
-
-https://www.tu-darmstadt.de/
-
-
-Don't hesitate to send us an e-mail or report an issue, 
-if something is broken (and it shouldn't be) or if you have further questions.
-
-> This repository contains experimental software and is published for the sole purpose 
-of giving additional background details on the respective publication. 
-
 ## Background info
 
 * Official website: http://www.macs.hw.ac.uk/InteractionLab/E2E/
-* Submission deadline: 31 October 2017
 * Evaluation protocol: 
     - automatic metrics for system development
-    - final (human) evaluation by crowd workers and experts
      
 ## Project structure
 
