@@ -48,24 +48,11 @@ See installation instructions [here][3].
 
 * Step 1
 
-The repository contains two template yaml files 
-for training Model-D and using it later for prediction.
-
-**Before** using the files, run:
-
-```
-$ envsubst < config.yaml > my-config.yaml
-```
-
-This will replace shell format strings (e.g, $HOME) in your .yaml
-files with the corresponding environment variables' values 
-(see [this page][1] for details). Use the *my-config.yaml* for the experiments.
-
-    * For your convenience, we have setup multiple configuration files in `config/`. 
-    * `train_transformer_CNE_Enc.YAML` and `predict_transformer_CNE_Enc.YAML` run experiments using Transformer model with CNE NOS embedding in encoder input. Please freeze `nos_option` and `nos_position` to maintain the CNE_Enc structure.
-    * `train_transformer_CNE_Dec.YAML` and `predict_transformer_CNE_Dec.YAML` run experiments using Transformer model with CNE NOS embedding in decoder input. Please freeze `nos_option` and `nos_position` to maintain the CNE_Dec structure.
-    * `train_transformer_PAG.YAML` and `predict_transformer_PAG.YAML` run experiments using Transformer model with PAG NOS. Please freeze `nos_option` to maintain the PAG structure. (`nos_position` is not used in this method.)
-    * `train_XXXX.YAML` and `predict_XXXX.YAML` files are required to be used in pairs.
+For your convenience, we have setup multiple configuration files in `config/`. 
+1. `train_transformer_CNE_Enc.YAML` and `predict_transformer_CNE_Enc.YAML` run experiments using Transformer model with CNE NOS embedding in encoder input. Please freeze `nos_option` and `nos_position` to maintain the CNE_Enc structure.
+2. `train_transformer_CNE_Dec.YAML` and `predict_transformer_CNE_Dec.YAML` run experiments using Transformer model with CNE NOS embedding in decoder input. Please freeze `nos_option` and `nos_position` to maintain the CNE_Dec structure.
+3. `train_transformer_PAG.YAML` and `predict_transformer_PAG.YAML` run experiments using Transformer model with PAG NOS. Please freeze `nos_option` to maintain the PAG structure. (`nos_position` is not used in this method.)
+4. `train_XXXX.YAML` and `predict_XXXX.YAML` files are required to be used in pairs.
 
 * Step2 
 
