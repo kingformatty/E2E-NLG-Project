@@ -75,20 +75,21 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
 3. After the experiment, a folder will be created in the directory specified 
     by the *experiments_dir* field of *train_transformer.yaml* file.
     This folder should contain the following files:
-        * - experiment log (*log.txt*)
-        * - model weights and development set predictions for each training epoch 
+        
+	* experiment log (*log.txt*)
+        * model weights and development set predictions for each training epoch 
         (*weights.epochX*, *predictions.epochX*)    
-        * - a csv file with scores and train/dev losses for each epoch (*scores.csv*)
-        * - configuration dictionary in json format (*config.json*)
-	* - pdf files with learning curves (optional)
+        * a csv file with scores and train/dev losses for each epoch (*scores.csv*)
+        * configuration dictionary in json format (*config.json*)
+	* pdf files with learning curves (optional)
     
 4. If you use a model for prediction (setting "predict" as the value for the *mode* field in the config file and 
     specifying model path in *model_fn*), use corresponding predict_transformer.yaml 
     or set the configuration parameters to be the same as your training configuration if you want to use the self-defined configuration.
     the predictions done by the loaded model will be
     stored in:
-        * - $model_fn.devset.predictions.txt
-        * - $model_fn.testset.predictions.txt
+        * $model_fn.devset.predictions.txt
+        * $model_fn.testset.predictions.txt
    
 ### Evaluation
 
