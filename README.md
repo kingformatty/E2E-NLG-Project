@@ -1,15 +1,13 @@
 # CS269 NLG Course Project: Sentence Controllable DA-based E2E Generation in Restaurant Domain
 
-# Notice
-
 The code of our course project is modified based on
 [https://github.com/UKPLab/e2e-nlg-challenge-2017](https://github.com/UKPLab/e2e-nlg-challenge-2017)
 
 1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68)
 
-and we have already fixed it in our project.
+and we have already fixed it.
 
-2. Transformer model is added in our project.
+2. Transformer model is added.
 
 ## Background info
 
