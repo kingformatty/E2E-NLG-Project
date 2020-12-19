@@ -37,7 +37,7 @@ model_params:
   nos_predict_sent_num:            # defined for decoding
 
   encoder_params:
-    input_size: 256 #set input size twice as embedding_dim if use hit_input
+    input_size: 256 #set input size twice as embedding_dim if use hit_input, otherwise, same as embedding_dim
     hidden_size: 512
     num_layers: 4
     dropout: 0.05

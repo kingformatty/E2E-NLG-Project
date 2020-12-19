@@ -38,7 +38,7 @@ model_params:
   nos_predict_sent_num:  #if nos_predict_strategy is "fix", specify nos_predict_fix
 
   encoder_params:
-    input_size: 256 # NOTE: should be equal to embedding_dim  #set to be the same as corresponding train_XXXX.yaml
+    input_size: 256 # NOTE: #set to be the same as corresponding train_XXXX.yaml
     hidden_size: 512
     num_layers: 4
     dropout: 0.0

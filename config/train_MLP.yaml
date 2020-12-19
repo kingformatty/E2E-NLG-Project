@@ -38,7 +38,7 @@ model_params:
   
   
   encoder_params:
-    input_size: 256 #set input size twice as embedding_dim if use hit_input
+    input_size: 256 #set input size twice as embedding_dim if use hit_input, otherwise, same as embedding_dim
     hidden_size: 768
     num_layers: 2
     dropout: 0
