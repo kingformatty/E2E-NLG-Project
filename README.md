@@ -3,9 +3,17 @@
 The code of our course project is modified based on
 [https://github.com/UKPLab/e2e-nlg-challenge-2017](https://github.com/UKPLab/e2e-nlg-challenge-2017)
 
-1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68) We have already fixed it in this project.
+Updates:
 
-2. Transformer model is added.
+1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68) We have  fixed it in this project.
+
+2. Two more data pre-processing strategies are implemented. ([A General Model for Neural Text Generation from Structured Data](http://www.macs.hw.ac.uk/InteractionLab/E2E/final_papers/E2E-Chen.pdf),[End-to-End Content and Plan Selection for Data-to-Text Generation](https://arxiv.org/abs/1810.04700))
+
+3. Transformer model
+
+4. Sentence Control stratigies:
+* Predict and Generate (PAG)
+* Controllable NOS Embedding (CNE)
 
 ## Background info
 
