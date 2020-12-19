@@ -1,4 +1,4 @@
-experiments_dir: exp
+experiments_dir: exp_trans
 log_level: INFO
 random_seed: 1
 
@@ -37,7 +37,7 @@ model_params:
   nos_predict_sent_num:           # defined for decoding
 
   encoder_params:
-    input_size: 256 
+    input_size: 256   #set input_size twice as embedding_dim if use hit_input
     hidden_size: 512
     num_layers: 4
     dropout: 0.05
