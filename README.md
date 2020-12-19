@@ -103,7 +103,7 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
    
 ### Evaluation
 
-Evaluate the generated context using the code below.
+Evaluate the generated context using following command:
 
     ```
     $ cd e2e-metrics
