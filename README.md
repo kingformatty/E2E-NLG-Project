@@ -12,8 +12,8 @@ Updates:
 3. Transformer model
 
 4. Sentence Control stratigies:
-* Predict and Generate (PAG)
-* Controllable NOS Embedding (CNE)
+     * Predict and Generate (PAG)
+     * Controllable NOS Embedding (CNE)
 
 ## Background info
 
