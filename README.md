@@ -32,9 +32,8 @@ We provide basic scripts and their utilities in this repository, along with some
 
 * 64-bit Linux versions
 * Python 3 and dependencies:
-    * PyTorch v0.2.0
+    * PyTorch v1.2.0
     * Progressbar2 v3.18.1
-* Python 2
 
 ## Installation
 
