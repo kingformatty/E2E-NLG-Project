@@ -58,7 +58,8 @@ class E2ESeq2SeqModel(Seq2SeqModel):
     def set_embeddings(self):
         self.embedding_dim = self.config["embedding_dim"]
         self.embedding_mat = get_embed_matrix(self.src_vocab_size, self.embedding_dim)
-        self.embedding_mat_nos = get_embed_matrix(7,self.embedding_dim)             #one more embedding layer for num of sentence embedding
+        if self.config["nos_option"]!=0:
+            self.embedding_mat_nos = get_embed_matrix(7,self.embedding_dim)             #one more embedding layer for num of sentence embedding
         embedding_drop_prob = self.config.get('embedding_dropout', 0.0)
         self.embedding_dropout_layer = nn.Dropout(embedding_drop_prob)
 

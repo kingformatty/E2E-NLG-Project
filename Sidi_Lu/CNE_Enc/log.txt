@@ -1,0 +1,53 @@
+2020-12-20 18:09:17,348 - experiment - INFO - Setting up the data
+2020-12-20 18:09:17,348 - experiment - DEBUG - Reading test data
+2020-12-20 18:09:17,352 - experiment - WARNING - e2e-dataset/UKP_vocab.txt does not exist!
+2020-12-20 18:09:53,981 - experiment - INFO - Setting up the data
+2020-12-20 18:09:53,982 - experiment - DEBUG - Reading test data
+2020-12-20 18:09:53,985 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:09:53,988 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:09:54,113 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 18:22:09,003 - experiment - INFO - Setting up the data
+2020-12-20 18:22:09,004 - experiment - DEBUG - Reading test data
+2020-12-20 18:22:09,007 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:22:09,009 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:22:09,164 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 18:22:12,455 - experiment - INFO - Predicting on test data
+2020-12-20 18:23:19,439 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12.testset.predictions.txt
+2020-12-20 18:23:19,441 - experiment - INFO - DONE
+2020-12-20 18:34:01,072 - experiment - INFO - Setting up the data
+2020-12-20 18:34:01,072 - experiment - DEBUG - Reading test data
+2020-12-20 18:34:01,076 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:34:01,079 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:34:01,303 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 18:34:04,553 - experiment - INFO - Predicting on test data
+2020-12-20 18:35:12,833 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12.testset.predictions.txt
+2020-12-20 18:35:12,835 - experiment - INFO - DONE
+2020-12-20 19:00:33,391 - experiment - INFO - Setting up the data
+2020-12-20 19:00:33,392 - experiment - DEBUG - Reading test data
+2020-12-20 19:00:33,395 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:00:33,398 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:00:33,521 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 19:01:07,784 - experiment - INFO - Setting up the data
+2020-12-20 19:01:07,784 - experiment - DEBUG - Reading test data
+2020-12-20 19:01:07,787 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:01:07,790 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:01:07,943 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 19:01:11,160 - experiment - INFO - Predicting on test data
+2020-12-20 19:02:20,046 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12.testset.predictions.txt
+2020-12-20 19:02:20,048 - experiment - INFO - DONE
+2020-12-20 19:28:20,628 - experiment - INFO - Setting up the data
+2020-12-20 19:28:20,628 - experiment - DEBUG - Reading test data
+2020-12-20 19:28:20,632 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:28:20,635 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:28:20,786 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 19:28:23,785 - experiment - INFO - Predicting on test data
+2020-12-20 19:29:29,780 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12.testset.predictions.txt
+2020-12-20 19:29:29,783 - experiment - INFO - DONE
+2020-12-20 19:51:13,876 - experiment - INFO - Setting up the data
+2020-12-20 19:51:13,876 - experiment - DEBUG - Reading test data
+2020-12-20 19:51:13,879 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:51:13,882 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:51:13,994 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12
+2020-12-20 19:51:16,519 - experiment - INFO - Predicting on test data
+2020-12-20 19:52:14,943 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Enc/weights_CNE_Enc.epoch12.testset.predictions.txt
+2020-12-20 19:52:14,944 - experiment - INFO - DONE

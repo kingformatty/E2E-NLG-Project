@@ -1,0 +1,63 @@
+experiments_dir: ./exp
+log_level: INFO
+random_seed: 1
+
+# choose from: predict, train
+mode: predict
+
+# If mode is 'predict', specify the model name,
+# e.g. /path/to/model/weights.epoch5
+model_fn: Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15
+
+# Model module names
+data-module: components.data.e2e_data_MLP
+model-module: components.model.e2e_model_transformer
+training-module: components.trainer.e2e_trainer_MLP
+evaluation-module: components.evaluator.e2e_evaluator
+
+data_params:
+
+  train_data: 
+  dev_data: 
+  test_data: e2e-dataset/testset.csv # specify the file to make preictions on
+  vocab_path: e2e-dataset/UKP_vocab.txt
+
+  max_src_len: 50
+  max_tgt_len: 100
+
+model_params:
+  hit_input: False
+
+  embedding_dim: 256
+  embedding_dropout: 0
+  teacher_forcing_ratio: 1.0
+
+  nos_option: 1      # 0 for None/no nos, 1 for CNE, 2 for PAG (freeze)
+  nos_position: decoder  #should be either "encoder" or "decoder" and should be the same as train_transformer.yaml
+  nos_predict_strategy: weight_embedding #should be chosen from "fix", "uniform_random", "distributive_random", "threshold", "weight_embedding" 
+  nos_predict_sent_num:  #if nos_predict_strategy is "fix", specify nos_predict_fix
+
+  encoder_params:
+    input_size: 256 # NOTE: should be equal to embedding_dim
+    hidden_size: 512
+    num_layers: 4
+    dropout: 0.0
+    n_head: 4
+    d_ff: 512
+    #bidirectional: True
+
+  decoder_params:
+    input_size: 256
+    hidden_size: 512
+    num_layers: 2
+    dropout: 0.0
+    n_head: 4
+    d_ff: 512
+  top_k: 1
+training_params:
+  evaluate_prediction: True
+  save_model_each_epoch: True
+  n_epochs: 15
+  batch_size: 32
+  optimizer: Adam
+  learning_rate: 0.0002

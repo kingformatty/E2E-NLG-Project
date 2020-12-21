@@ -1,5 +1,5 @@
 import logging
-
+import pdb
 import components.constants as constants
 from components.utils.io import check_file_exists
 
@@ -10,7 +10,7 @@ class VocabularyBase(object):
     Common methods for all vocabulary classes.
     """
 
-    def load_vocabulary(self, vocabulary_path):
+    def load_vocabulary(self, vocabulary_path, nos_option):
 
         """
         Load vocabulary from file.
@@ -24,9 +24,9 @@ class VocabularyBase(object):
             with open(vocabulary_path, 'r') as f:
                 for line in f:
                     vocablist.append(line.strip())
-
-            vocablist += ['<1>', '<2>', '<3>', 
-                          '<4>', '<5>', '<6>']
+            if nos_option == 2:
+                vocablist += ['<1>', '<2>', '<3>', 
+                              '<4>', '<5>', '<6>']
 
             for idx, tok in enumerate(vocablist):
                 self.id2tok[idx] = tok
@@ -126,7 +126,7 @@ class VocabularyOneSide(VocabularyBase):
 
 
 class VocabularyShared(VocabularyBase):
-    def __init__(self, vocab_path, data_raw_src=None, data_raw_tgt=None, lower=True):
+    def __init__(self, vocab_path, nos_option, data_raw_src=None, data_raw_tgt=None, lower=True):
         """
         Initialize a vocabulary class. Either you specify a vocabulary path to load
         the vocabulary from a file, or you provide training data to create one.
@@ -137,6 +137,7 @@ class VocabularyShared(VocabularyBase):
         self.lower = lower
         self.id2tok = {}
         self.tok2id = {}
+        self.nos_option=nos_option
 
         if not check_file_exists(vocab_path):
             assert (data_raw_src is not None) and (data_raw_tgt is not None), \
@@ -147,7 +148,8 @@ class VocabularyShared(VocabularyBase):
 
         else:
             # Load a saved vocabulary
-            self.load_vocabulary(vocab_path)
+
+            self.load_vocabulary(vocab_path, self.nos_option)
 
     def create_vocabulary(self, raw_data_src, raw_data_tgt, vocab_path):
         """
@@ -170,8 +172,9 @@ class VocabularyShared(VocabularyBase):
             for w in vocablist:
                 vocab_file.write('%s\n' % w)
         
-        vocablist += ['<1>', '<2>', '<3>', 
-                      '<4>', '<5>', '<6>']
+        if self.nos_option == 2:
+            vocablist += ['<1>', '<2>', '<3>', 
+                          '<4>', '<5>', '<6>']
 
         for idx, tok in enumerate(vocablist):
             self.id2tok[idx] = tok

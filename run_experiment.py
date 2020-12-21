@@ -8,7 +8,6 @@ from components.utils.log import set_logger
 from components.utils.serialization import load_model, make_model_dir
 from components.utils.serialization import save_config, save_predictions_txt
 
-
 def run(config_dict):
 
     # Fetch all relevant modules.
@@ -28,7 +27,7 @@ def run(config_dict):
     logger = set_logger(config_dict["log_level"], os.path.join(model_dirname, "log.txt"))
 
     # Setup the data
-    data = DataClass(config_dict["data_params"])
+    data = DataClass(config_dict["data_params"], config_dict["model_params"]["nos_option"])
     data.setup()
 
     # Setup the model

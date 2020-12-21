@@ -1,0 +1,32 @@
+2020-12-20 18:35:34,312 - experiment - INFO - Setting up the data
+2020-12-20 18:35:34,312 - experiment - DEBUG - Reading test data
+2020-12-20 18:35:34,316 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:35:34,318 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:35:34,429 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15
+2020-12-20 18:35:36,951 - experiment - INFO - Predicting on test data
+2020-12-20 18:36:34,119 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15.testset.predictions.txt
+2020-12-20 18:36:34,121 - experiment - INFO - DONE
+2020-12-20 19:02:41,741 - experiment - INFO - Setting up the data
+2020-12-20 19:02:41,742 - experiment - DEBUG - Reading test data
+2020-12-20 19:02:41,745 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:02:41,748 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:02:41,862 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15
+2020-12-20 19:02:44,669 - experiment - INFO - Predicting on test data
+2020-12-20 19:03:44,136 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15.testset.predictions.txt
+2020-12-20 19:03:44,137 - experiment - INFO - DONE
+2020-12-20 19:29:51,201 - experiment - INFO - Setting up the data
+2020-12-20 19:29:51,201 - experiment - DEBUG - Reading test data
+2020-12-20 19:29:51,205 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:29:51,208 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:29:51,354 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15
+2020-12-20 19:29:53,938 - experiment - INFO - Predicting on test data
+2020-12-20 19:30:52,603 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15.testset.predictions.txt
+2020-12-20 19:30:52,604 - experiment - INFO - DONE
+2020-12-20 19:52:35,868 - experiment - INFO - Setting up the data
+2020-12-20 19:52:35,868 - experiment - DEBUG - Reading test data
+2020-12-20 19:52:35,871 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:52:35,874 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:52:36,018 - experiment - INFO - Loading the model <-- Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15
+2020-12-20 19:52:38,427 - experiment - INFO - Predicting on test data
+2020-12-20 19:53:37,122 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/CNE_Dec/weights_CNE_Dec.epoch15.testset.predictions.txt
+2020-12-20 19:53:37,124 - experiment - INFO - DONE

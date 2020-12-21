@@ -1,0 +1,59 @@
+2020-12-20 18:27:56,349 - experiment - INFO - Setting up the data
+2020-12-20 18:27:56,349 - experiment - DEBUG - Reading test data
+2020-12-20 18:27:56,352 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:27:56,355 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:27:56,479 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 18:41:05,808 - experiment - INFO - Setting up the data
+2020-12-20 18:41:05,809 - experiment - DEBUG - Reading test data
+2020-12-20 18:41:05,812 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 18:41:05,815 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:41:06,008 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 18:44:08,068 - experiment - INFO - Setting up the data
+2020-12-20 18:44:08,068 - experiment - DEBUG - Reading test data
+2020-12-20 18:44:08,072 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 18:44:08,074 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:44:08,190 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 18:44:11,414 - experiment - INFO - Predicting on test data
+2020-12-20 18:45:15,810 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/PAG/weights.epoch7.testset.predictions.txt
+2020-12-20 18:45:15,812 - experiment - INFO - DONE
+2020-12-20 18:47:43,587 - experiment - INFO - Setting up the data
+2020-12-20 18:47:43,587 - experiment - DEBUG - Reading test data
+2020-12-20 18:47:43,590 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 18:48:47,718 - experiment - INFO - Setting up the data
+2020-12-20 18:48:47,718 - experiment - DEBUG - Reading test data
+2020-12-20 18:52:44,971 - experiment - INFO - Setting up the data
+2020-12-20 18:52:44,971 - experiment - DEBUG - Reading test data
+2020-12-20 18:52:44,975 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 18:52:44,979 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:52:45,165 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 18:52:48,416 - experiment - INFO - Predicting on test data
+2020-12-20 18:53:44,011 - experiment - INFO - Setting up the data
+2020-12-20 18:53:44,012 - experiment - DEBUG - Reading test data
+2020-12-20 18:53:44,015 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 18:54:49,142 - experiment - INFO - Setting up the data
+2020-12-20 18:54:49,142 - experiment - DEBUG - Reading test data
+2020-12-20 18:54:49,146 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:04:05,531 - experiment - INFO - Setting up the data
+2020-12-20 19:04:05,531 - experiment - DEBUG - Reading test data
+2020-12-20 19:04:05,534 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:04:05,537 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:04:05,644 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 19:04:08,113 - experiment - INFO - Predicting on test data
+2020-12-20 19:05:17,182 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/PAG/weights.epoch7.testset.predictions.txt
+2020-12-20 19:05:17,183 - experiment - INFO - DONE
+2020-12-20 19:31:13,976 - experiment - INFO - Setting up the data
+2020-12-20 19:31:13,976 - experiment - DEBUG - Reading test data
+2020-12-20 19:31:13,979 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:31:13,982 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:31:14,087 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 19:31:16,503 - experiment - INFO - Predicting on test data
+2020-12-20 19:32:23,967 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/PAG/weights.epoch7.testset.predictions.txt
+2020-12-20 19:32:23,968 - experiment - INFO - DONE
+2020-12-20 19:53:58,349 - experiment - INFO - Setting up the data
+2020-12-20 19:53:58,349 - experiment - DEBUG - Reading test data
+2020-12-20 19:53:58,353 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:53:58,355 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:53:58,467 - experiment - INFO - Loading the model <-- Sidi_Lu/PAG/weights.epoch7
+2020-12-20 19:54:00,899 - experiment - INFO - Predicting on test data
+2020-12-20 19:55:09,080 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/PAG/weights.epoch7.testset.predictions.txt
+2020-12-20 19:55:09,081 - experiment - INFO - DONE

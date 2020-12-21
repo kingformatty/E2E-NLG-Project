@@ -172,7 +172,7 @@ class E2EMLPData(BaseDataClass):
         return batch_pairs
 
     def setup_vocab(self, vocab_path, train_x_raw, train_y_raw):
-        self.vocab = VocabularyShared(vocab_path, train_x_raw, train_y_raw, lower=False)  # TODO: lower!
+        self.vocab = VocabularyShared(vocab_path, self.nos_option, train_x_raw, train_y_raw, lower=False)  # TODO: lower!
 
 
 component = E2EMLPData

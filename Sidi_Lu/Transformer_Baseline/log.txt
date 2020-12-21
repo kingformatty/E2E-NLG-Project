@@ -1,0 +1,86 @@
+2020-12-20 18:03:57,988 - experiment - INFO - Setting up the data
+2020-12-20 18:03:57,988 - experiment - DEBUG - Reading test data
+2020-12-20 18:03:58,000 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:03:58,006 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:03:58,131 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 18:04:29,526 - experiment - INFO - Setting up the data
+2020-12-20 18:04:29,526 - experiment - DEBUG - Reading test data
+2020-12-20 18:04:29,530 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:04:29,532 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:04:29,643 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 18:21:53,107 - experiment - INFO - Setting up the data
+2020-12-20 18:21:53,107 - experiment - DEBUG - Reading test data
+2020-12-20 18:21:53,111 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 18:21:53,113 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 18:21:53,233 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:00:32,363 - experiment - INFO - Setting up the data
+2020-12-20 19:00:32,364 - experiment - DEBUG - Reading test data
+2020-12-20 19:00:32,367 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:00:32,370 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:00:32,495 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:08:57,133 - experiment - INFO - Setting up the data
+2020-12-20 19:08:57,133 - experiment - DEBUG - Reading test data
+2020-12-20 19:08:57,136 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:08:57,139 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:08:57,267 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:10:27,170 - experiment - INFO - Setting up the data
+2020-12-20 19:10:27,170 - experiment - DEBUG - Reading test data
+2020-12-20 19:10:27,174 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:10:27,177 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:10:27,342 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:11:27,994 - experiment - INFO - Setting up the data
+2020-12-20 19:11:27,995 - experiment - DEBUG - Reading test data
+2020-12-20 19:11:27,998 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:11:28,001 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:11:28,150 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:11:31,322 - experiment - INFO - Predicting on test data
+2020-12-20 19:12:39,823 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/Transformer_Baseline/tf_baseline.weight.testset.predictions.txt
+2020-12-20 19:12:39,825 - experiment - INFO - DONE
+2020-12-20 19:13:03,980 - experiment - INFO - Setting up the data
+2020-12-20 19:13:03,980 - experiment - DEBUG - Reading test data
+2020-12-20 19:13:03,983 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab_PAG.txt
+2020-12-20 19:13:03,986 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:13:04,087 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/tf_baseline.weight
+2020-12-20 19:13:06,543 - experiment - INFO - Predicting on test data
+2020-12-20 19:14:03,618 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/Transformer_Baseline/tf_baseline.weight.testset.predictions.txt
+2020-12-20 19:14:03,620 - experiment - INFO - DONE
+2020-12-20 19:16:24,834 - experiment - INFO - Setting up the data
+2020-12-20 19:16:24,834 - experiment - DEBUG - Reading test data
+2020-12-20 19:16:24,837 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:16:24,840 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:16:24,969 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch5
+2020-12-20 19:17:20,112 - experiment - INFO - Setting up the data
+2020-12-20 19:17:20,112 - experiment - DEBUG - Reading test data
+2020-12-20 19:17:20,115 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:17:20,118 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:17:20,231 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch5
+2020-12-20 19:23:58,750 - experiment - INFO - Setting up the data
+2020-12-20 19:23:58,750 - experiment - DEBUG - Reading test data
+2020-12-20 19:23:58,753 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:23:58,756 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:23:58,862 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch5
+2020-12-20 19:24:02,013 - experiment - INFO - Predicting on test data
+2020-12-20 19:25:27,107 - experiment - INFO - Setting up the data
+2020-12-20 19:25:27,107 - experiment - DEBUG - Reading test data
+2020-12-20 19:25:27,110 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:25:27,113 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:25:27,251 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch5
+2020-12-20 19:25:29,833 - experiment - INFO - Predicting on test data
+2020-12-20 19:26:25,662 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/Transformer_Baseline/weights.epoch5.testset.predictions.txt
+2020-12-20 19:26:25,664 - experiment - INFO - DONE
+2020-12-20 19:47:58,463 - experiment - INFO - Setting up the data
+2020-12-20 19:47:58,464 - experiment - DEBUG - Reading test data
+2020-12-20 19:47:58,467 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:47:58,470 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:47:58,616 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch3
+2020-12-20 19:48:01,514 - experiment - INFO - Predicting on test data
+2020-12-20 19:49:04,501 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/Transformer_Baseline/weights.epoch3.testset.predictions.txt
+2020-12-20 19:49:04,503 - experiment - INFO - DONE
+2020-12-20 19:49:44,096 - experiment - INFO - Setting up the data
+2020-12-20 19:49:44,096 - experiment - DEBUG - Reading test data
+2020-12-20 19:49:44,100 - experiment - DEBUG - Loading vocabulary from e2e-dataset/UKP_vocab.txt
+2020-12-20 19:49:44,102 - experiment - DEBUG - Fixing seed: 1
+2020-12-20 19:49:44,209 - experiment - INFO - Loading the model <-- Sidi_Lu/Transformer_Baseline/weights.epoch3
+2020-12-20 19:49:47,100 - experiment - INFO - Predicting on test data
+2020-12-20 19:50:52,439 - experiment - INFO - Saving predictions to a txt file --> Sidi_Lu/Transformer_Baseline/weights.epoch3.testset.predictions.txt
+2020-12-20 19:50:52,440 - experiment - INFO - DONE

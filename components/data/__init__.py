@@ -19,7 +19,7 @@ class BaseDataClass(object):
     and preparing data for training and evaluating the models.
     """
 
-    def __init__(self, config):
+    def __init__(self, config, nos_option):
         self.config = config or dict()
 
         # Following the tradition in MT, specifying both src and tgt (but will use either one)
@@ -31,7 +31,8 @@ class BaseDataClass(object):
         self.vocab = None
         self.lexicalizations = {'train': None, 'dev': None, 'test': None}
         self.fnames = {}
-
+        self.nos_option = nos_option
+        
     def setup(self):
         logger.info("Setting up the data")
 
