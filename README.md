@@ -7,13 +7,13 @@ Updates:
 
 1. We found a critical error in the original code, which could possibly make the training wrong. (components/model/modules/attention/attn\_bahd.py#68) We have  fixed it in this project.
 
-2. Two more data pre-processing strategies are implemented. ([A General Model for Neural Text Generation from Structured Data](http://www.macs.hw.ac.uk/InteractionLab/E2E/final_papers/E2E-Chen.pdf),[End-to-End Content and Plan Selection for Data-to-Text Generation](https://arxiv.org/abs/1810.04700))
+2. Two more data pre-processing strategies are implemented. ([A General Model for Neural Text Generation from Structured Data](http://www.macs.hw.ac.uk/InteractionLab/E2E/final_papers/E2E-Chen.pdf), [End-to-End Content and Plan Selection for Data-to-Text Generation](https://arxiv.org/abs/1810.04700))
 
 3. Transformer model
 
 4. Sentence Control stratigies:
-* Predict and Generate (PAG)
-* Controllable NOS Embedding (CNE)
+     * Predict and Generate (PAG)
+     * Controllable NOS Embedding (CNE)
 
 ## Background info
 
@@ -32,9 +32,8 @@ We provide basic scripts and their utilities in this repository, along with some
 
 * 64-bit Linux versions
 * Python 3 and dependencies:
-    * PyTorch v0.2.0
+    * PyTorch v1.2.0
     * Progressbar2 v3.18.1
-* Python 2
 
 ## Installation
 
@@ -104,7 +103,7 @@ Please first download e2e-metrics toolkit from [3]. We are going to use the meas
    
 ### Evaluation
 
-Evaluate the generated context using the code below.
+Evaluate the generated context using following command:
 
     ```
     $ cd e2e-metrics
