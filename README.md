@@ -1,3 +1,13 @@
+# Update  12/20/2020
+1. We have uploaded an `evaluation.sh` script for your convenience to reproduce prediction and evaluation shown in Table 4. Please update your local repo, and please copy and paste `e2e-metrics` folder into the same directory as this script. This script will run Transformer Baseline, PAG, CNE_Enc, CNE_Dec prediction and evaluate the generated context automatically. 
+3. Please run the following commands to get the prediction and scores.
+```
+$ git clone https://github.com/tuetschek/e2e-metrics
+$ ./evaluation.sh
+```
+
+3. Notice: Since for the transformer baseline model, it was an quite early experiment, so we deleted it. The transformer baseline model weights are trained again today, so the evaluation results is slightly different from Table 4. Besides, there is a typo in Table 4 in the report, the actual ROUGE-L score for the best CNE-Dec experiments is 0.6850, instead of 0.6500. 
+
 # CS269 NLG Course Project: Sentence Controllable DA-based E2E Generation in Restaurant Domain
 
 The code of our course project is modified based on
